@@ -29,7 +29,7 @@
   python tp.py Test Dtree testX_PCA5.npy
 
   metodos = Dtree, Rforest, Etree, Knn, Nbayes, Svc
-  dimensiones = PCA, ICA, RFE
+  dimensiones = PCA, ICA
 """
 
 import sys
@@ -89,6 +89,7 @@ def red_dim(metodo, n):
   np.save(path + 'testX_' + metodo + str(n), testX)
 
 def predecir(metodo, base):
+  # TODO: Esto no va acá! debería estar al final, con la parte de cross validation
   testX = np.load(path + base)
   clf = pickle.load(open(path + metodo + base.replace("test","train") + '.pickle'))
   start = time.time()
@@ -99,14 +100,17 @@ def predecir(metodo, base):
   predn = map(lambda x : ( 1 if x == 'ham' else 0 ), predy)
   d = datetime.datetime.now()
   f = open("data.txt",'a')
-  f.write("<" + str(d.day) + "/" + str(d.month) + "/" + str(d.year) + " " + str(d.hour) + "hs>\n")
-  f.write(metodo + " - " + base + "\n")
-  f.write("T: " + str(end - start) + "\n")
-  f.write("P: %1.3f\n" % precision_score(testn, predn))
-  f.write("R: %1.3f\n" % recall_score(testn, predn))
-  f.write("F: %1.3f\n" % f1_score(testn, predn))
-  f.write("A: %1.3f\n" % accuracy_score(testn, predn))
-  f.write("R: %1.3f\n" % roc_auc_score(testn, predn))
+  #f.write("<" + str(d.day) + "/" + str(d.month) + "/" + str(d.year) + " " + str(d.hour) + "hs>\n")
+  #f.write(metodo + " " + base + "\n")
+  #TODO: obtener RedDim y cant_comp a partir del nombre de la base
+  f.write(metodo + " " + redDim + " " + cant_comp + " ")
+  f.write(str(end - start) + " ")
+  #TODO: calcular prec, acc, roc, f1, recall... promedio y varianza con CV
+  f.write(str(precision_score(testn, predn)) + " ")
+  f.write(str(recall_score(testn, predn)) + " ")
+  f.write(str(f1_score(testn, predn)) + " ")
+  f.write(str(accuracy_score(testn, predn)) + " ")
+  f.write(str(roc_auc_score(testn, predn)) + "\n")
   f.close()
 
 if __name__ == '__main__':
@@ -274,8 +278,9 @@ if __name__ == '__main__':
 
   d = datetime.datetime.now()
   f = open("data.txt",'a')
-  f.write("<" + str(d.day) + "/" + str(d.month) + "/" + str(d.year) + " " + str(d.hour) + "hs>\n")
-  f.write("TRAIN " + metodo + " - " + base + "iter " + str(maxiter) + "\n")
-  f.write("T: " + str(end - start) + "\n")
+  #f.write("<" + str(d.day) + "/" + str(d.month) + "/" + str(d.year) + " " + str(d.hour) + "hs>\n")
+  f.write(metodo + " NULL " + str(0) + " " + str(end - start))
+  #TODO: calcular prec, acc, roc, f1, recall... promedio y varianza
+  f.write("\n")
   f.close()
   guardar_modelo(metodo, base)
