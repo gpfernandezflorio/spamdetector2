@@ -55,48 +55,46 @@ sys.setdefaultencoding('utf-8')
 from attributes import dnames
 from attributes import *
 
+estoy_en_los_labos = True
+
+if estoy_en_los_labos:
+  path = "/media/libre/aa/"
+else:
+  path = ""
+
 def guardar_modelo(metodo, base):
-  str_file = metodo + base + '.pickle'
+  str_file = path + metodo + base + '.pickle'
   fout = open(str_file,'w')
   pickle.dump(clf,fout)
   fout.close()
   return
 
 def red_dim(metodo, n):
-  trainX = np.load('trainX.npy')
-  testX = np.load('testX.npy')
-  if metodo == "RFE":
-    clf = DecisionTreeClassifier()
-    rfe = RFECV(clf, step=1, cv=10, verbose=2)
-    trainy = np.load('trainy.npy')
-    rfe = rfe.fit(trainX, trainy)
-    l = zip(rfe.ranking_,dnames)
-    for i in sorted(l, key=lambda x: x[0]):
-      print i[1]
+  trainX = np.load(path + 'trainX.npy')
+  testX = np.load(path + 'testX.npy')
+  if metodo == "PCA":
+    pca = IncrementalPCA(n_components=n)
+    pca.fit(trainX)
+    trainX = pca.transform(trainX)
+    testX = pca.transform(testX)
+  elif metodo == "ICA":
+    ica = FastICA(n_components=n)
+    ica.fit(trainX)
+    trainX = ica.transform(trainX)
+    testX = ica.transform(testX)
   else:
-    if metodo == "PCA":
-      pca = IncrementalPCA(n_components=n)
-      pca.fit(trainX)
-      trainX = pca.transform(trainX)
-      testX = pca.transform(testX)
-    elif metodo == "ICA":
-      ica = FastICA(n_components=n)
-      ica.fit(trainX)
-      trainX = ica.transform(trainX)
-      testX = ica.transform(testX)
-    else:
-      print u'Dimensión inválida'
-      exit()
-    np.save('trainX_' + metodo + str(n) , trainX)
-    np.save('testX_' + metodo + str(n), testX)
+    print u'Dimensión inválida'
+    exit()
+  np.save(path + 'trainX_' + metodo + str(n) , trainX)
+  np.save(path + 'testX_' + metodo + str(n), testX)
 
 def predecir(metodo, base):
-  testX = np.load(base)
-  clf = pickle.load(open(metodo + base.replace("test","train") + '.pickle'))
+  testX = np.load(path + base)
+  clf = pickle.load(open(path + metodo + base.replace("test","train") + '.pickle'))
   start = time.time()
   predy = list(clf.predict(testX))
   end = time.time()
-  testy = np.load('testy.npy')
+  testy = np.load(path + 'testy.npy')
   testn = map(lambda x : ( 1 if x == 'ham' else 0 ), testy)
   predn = map(lambda x : ( 1 if x == 'ham' else 0 ), predy)
   d = datetime.datetime.now()
@@ -152,9 +150,9 @@ if __name__ == '__main__':
       if len(sys.argv) > n:
         cv = int(sys.argv[n])
         n = n + 1
-      clf = pickle.load(open(metodo + base + '.pickle'))
-      X = np.load(base)
-      y = np.load('trainy.npy')
+      clf = pickle.load(open(path + metodo + base + '.pickle'))
+      X = np.load(path + base)
+      y = np.load(path + 'trainy.npy')
       res = cross_val_score(clf, X, y, cv=cv)
       d = datetime.datetime.now()
       f = open("data.txt",'a')
@@ -208,8 +206,8 @@ if __name__ == '__main__':
     maxiter = 100
 
   print "maxiter es " + str(maxiter)
-  X = np.load(base)
-  y = np.load('trainy.npy')
+  X = np.load(path + base)
+  y = np.load(path + 'trainy.npy')
 
   start = 0
   end = 0
