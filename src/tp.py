@@ -6,8 +6,6 @@
 
 """
   Modulo de TP Spam Detector.
-*Cargar datos:
-  python tp.py File
 
 *Reducir Dimensiones:
   python tp.py Red dimension [n=10]
@@ -64,27 +62,6 @@ def guardar_modelo(metodo, base):
   fout.close()
   return
 
-def cargando_atributos(idf):
-  print "Cargando atributos"
-  df = pd.DataFrame([x[0] for x in idf], columns=['text'])
-  df['class'] = [x[1] for x in idf]
-  print df
-  for i in range(len(dnames)):
-    df[dnames[i]] = map(dfuncs[i], df.text)
-  X = df[dnames].values
-  y = df['class']
-  return X, y
-
-def leer_base():
-  train = np.load('train.npy')
-  test = np.load('test.npy')
-  trainX, trainy = cargando_atributos(train)
-  testX, testy = cargando_atributos(test)
-  np.save('trainX', trainX)
-  np.save('trainy', trainy)
-  np.save('testX', testX)
-  np.save('testy', testy)
-
 def red_dim(metodo, n):
   trainX = np.load('trainX.npy')
   testX = np.load('testX.npy')
@@ -138,10 +115,6 @@ if __name__ == '__main__':
   if len(sys.argv) > 1:
     metodo = sys.argv[1]
     n = 2
-    # FILE
-    if metodo == 'File':
-      leer_base()
-      exit()
     # RED
     if metodo == 'Red':
       metodo = "none"
