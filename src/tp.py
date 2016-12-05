@@ -52,6 +52,8 @@ from sklearn.metrics import ( accuracy_score, precision_score, recall_score, f1_
 from sklearn.decomposition import PCA, IncrementalPCA, FastICA
 import pickle
 
+reload(sys)
+sys.setdefaultencoding('utf-8')
 from attributes import dnames
 from attributes import *
 
