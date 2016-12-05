@@ -20,11 +20,11 @@ ham_counter = Counter()
 spam_counter = Counter()
 
 for s in spam:
-    for w in s.split(" "):
+    for w in s.split():
         spam_counter[w] += 1
 
 for s in ham:
-    for w in s.split(" "):
+    for w in s.split():
         ham_counter[w] += 1
 
 print "Palabras Contadas"
@@ -33,7 +33,7 @@ spam_words = Counter()
 proportions = Counter()
 
 for s in spam_counter:
-    if s in ham_counter.keys():
+    if s in ham_counter:
         proportions[s] = float(spam_counter[s]) / float(ham_counter[s])
     else:
         spam_words[s] = float(spam_counter[s])
