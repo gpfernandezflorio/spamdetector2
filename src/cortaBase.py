@@ -51,8 +51,8 @@ if __name__ == '__main__':
     df['class'] = ['ham' for _ in range(len(ham_txt))]+['spam' for _ in range(len(spam_txt))]
     train, test = train_test_split(df, test_size = 0.2)
     if estoy_en_los_labos:
-        np.save('/media/libra/aa/train', train)
-        np.save('/media/libra/aa/test', test)
+        np.save('/media/libre/aa/train', train)
+        np.save('/media/libre/aa/test', test)
     else:
         np.save('train', train)
         np.save('test', test)
