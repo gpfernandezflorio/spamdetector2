@@ -5,10 +5,18 @@ import numpy as np
 from collections import Counter
 import pandas as pd
 
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 estoy_en_los_labos = True
 prueba_full = True
 
-train = np.load('train.npy')
+if estoy_en_los_labos:
+    train = np.load('/media/libre/aa/train.npy')
+else:
+    train = np.load('train.npy')
+
 print "Base Cargada"
 
 ham = [x[0] for x in train if x[1] == 'ham']
@@ -40,13 +48,15 @@ for s in spam_counter:
 
 print "Proporciones Calculadas"
 
-proportions_list = proportions.most_common()
-spam_words_list = spam_words.most_common()
+cant_words = 100
+spam_words_list = spam_words.most_common(cant_words)
+proportions_list = proportions.most_common(cant_words)
 
-cant_words = 10
-st1 = "dnames = ['len',"
-st2 = ""
-st3 = "dfuncs = [len,"
+st1 = u"#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n"
+
+st1 += "dnames = ['len',"
+st2 = u""
+st3 = u"dfuncs = [len,"
 h=0
 for t in proportions_list:
     h = h+1
@@ -64,6 +74,9 @@ for t in spam_words_list:
     st2 += "def a" + str(h) + "(txt): return txt.count('" + t[0] + "')\n"
 st1= st1[0:-1] + "]"
 st3= st3[0:-1] + "]"
-print st1
-print st2
-print st3
+#print st1
+#print st2
+#print st3
+f = open('attributes.py','w')
+f.write(st1+u'\n'+st2+u'\n'+st3)
+f.close()

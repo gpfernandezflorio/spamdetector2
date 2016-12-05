@@ -40,7 +40,7 @@ def leer_base():
   if estoy_en_los_labos:
     train = np.load('/media/libre/aa/train.npy')
     test = np.load('/media/libre/aa/test.npy')
-  else
+  else:
     train = np.load('train.npy')
     test = np.load('test.npy')
   trainX, trainy = cargando_atributos(train)
