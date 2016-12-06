@@ -1,6 +1,21 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# Aprendizaje Automatico - DC, FCEN, UBA
+# Segundo cuatrimestre 2016
+
+"""
+  Modulo de TP Spam Detector. [8] Ploter.
+
+  Descripción: Grafica resultados.
+
+  Uso: python ploter.py
+
+  Requiere el archivo data.txt
+
+  Output: ?
+"""
+
 import matplotlib.pyplot as plt
 
 f1ica = {"Dtree":{},"Rforest":{},"Nbayes":{},"Knn":{},"Svc":{}}

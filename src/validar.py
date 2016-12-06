@@ -10,7 +10,7 @@
   Descripción: Utiliza K-fold Cross Validation para evaluar un modelo entrenado.
 
   Uso: python validar.py MODELO [BASE=trainX.npy] [K=10]
-  * Siendo MODELO el modelo a entrenar (debe ser un archivo .pickle existente)
+  * Siendo MODELO el modelo a validar (debe ser un archivo .pickle existente)
   * Siendo BASE la base contra la que validar (debe ser un archivo .npy existente) (trainX.npy por defecto).
   * Siendo K la cantidad de folds (10 por defecto)
 
