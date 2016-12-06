@@ -5,8 +5,15 @@
 # Segundo cuatrimestre 2016
 
 """
-  Modulo de TP Spam Detector.
+  Modulo de TP Spam Detector. [1] CortaBase.
+
+  Descripción: Divide la base completa en train y test.
+
   Uso: python cortaBase.py
+
+  Output: train.npy | test.npy
+  * si estoy_en_los_labos los guarda en /media/libre/aa/.
+  * si no, en el mismo directorio.
 """
 
 import sys

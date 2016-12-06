@@ -1,5 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+# Aprendizaje Automatico - DC, FCEN, UBA
+# Segundo cuatrimestre 2016
+
+"""
+  Modulo de TP Spam Detector. [2] WordCounter.
+
+  Descripción: Determina las palabras más "spam".
+
+  Uso: python wordCounter.py
+  * si estoy_en_los_labos los va a buscar en /media/libre/aa/.
+  * si no, en el mismo directorio.
+
+  Output: attributes.py
+  * Tras ejecutarlo, revisar el archivo de salida y reemplazar las apariciones de ' por \', dentro de los strings.
+"""
+
 import json
 import numpy as np
 from collections import Counter

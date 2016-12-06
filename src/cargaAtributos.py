@@ -1,6 +1,25 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# Aprendizaje Automatico - DC, FCEN, UBA
+# Segundo cuatrimestre 2016
+
+"""
+  Modulo de TP Spam Detector. [3] CargaAtributos.
+
+  Descripción: Almacena sólo la información relevante (los atributos) de las bases de train y test.
+
+  Uso: python cargaAtributos.py
+
+  Requiere los archivos train.npy y test.npy
+  * si estoy_en_los_labos los va a buscar en /media/libre/aa/.
+  * si no, en el mismo directorio.
+
+  Output: trainX.npy | testX.npy | trainy.npy | testy.npy
+  * si estoy_en_los_labos los guarda en /media/libre/aa/.
+  * si no, en el mismo directorio.
+"""
+
 import sys
 import time, datetime
 import json
