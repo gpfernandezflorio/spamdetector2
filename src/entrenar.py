@@ -14,7 +14,7 @@
   * Siendo BASE la base con la que entrenar (debe ser un archivo .npy existente) (trainX.npy por defecto).
   * Siendo MAXITER la máxima cantidad de iteraciones (100 por defecto)
 
-  Requiere el archivos trainX.npy (o el pasado por parámetro).
+  Requiere el archivo trainX.npy (o el pasado por parámetro).
   * si estoy_en_los_labos lo va a buscar en /media/libre/aa/.
   * si no, en el mismo directorio.
 
