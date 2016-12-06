@@ -69,8 +69,8 @@ def red_dim(metodo, n):
   else:
     print u'Dimensión inválida'
     exit()
-  np.save(path + metodo + str(n) , trainX)
-  np.save(path + metodo + str(n) + '-test', testX)
+  np.save(path + metodo + "." + str(n) , trainX)
+  np.save(path + metodo + "." + str(n) + '-test', testX)
 
 if __name__ == '__main__':
   if len(sys.argv) > 1:
