@@ -27,7 +27,6 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 estoy_en_los_labos = True
-prueba_full = True
 
 if estoy_en_los_labos:
     train = np.load('/media/libre/aa/train.npy')

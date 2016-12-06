@@ -13,11 +13,11 @@
   * Siendo METODO alguno de los siguientes: PCA o ICA.
   * Siendo DIMENSIONES la cantidad de componenetes deseada (10 por defecto).
 
-  Requiere los archivos trainX.npy y testX.npy
+  Requiere los archivos trainX.npy y testX.npy.
   * si estoy_en_los_labos los va a buscar en /media/libre/aa/.
   * si no, en el mismo directorio.
 
-  Output: NAME.npy test/NAME.npy
+  Output: NAME.npy NAME-test.npy
   * Siendo NAME el nombre del archivo, compuesto por el nombre del método y la cantidad de componentes.
   * si estoy_en_los_labos los guarda en /media/libre/aa/.
   * si no, en el mismo directorio.
@@ -70,7 +70,7 @@ def red_dim(metodo, n):
     print u'Dimensión inválida'
     exit()
   np.save(path + metodo + str(n) , trainX)
-  np.save(path + 'test/' + metodo + str(n), testX)
+  np.save(path + metodo + str(n) + '-test', testX)
 
 if __name__ == '__main__':
   if len(sys.argv) > 1:
