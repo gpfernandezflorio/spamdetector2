@@ -32,7 +32,7 @@ ropca = {"Dtree":{},"Rforest":{},"Nbayes":{},"Knn":{},"Svc":{}}
 
 f1 = {}
 
-fname = 'data.txt'
+fname = 'cv.txt'
 
 lines = [line.rstrip('\n') for line in open(fname,'r')]
 

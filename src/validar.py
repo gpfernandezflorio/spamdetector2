@@ -18,7 +18,7 @@
   * si estoy_en_los_labos los va a buscar en /media/libre/aa/.
   * si no, en el mismo directorio.
 
-  Output: data.txt (append).
+  Output: cv.txt (append).
 """
 
 import sys
@@ -98,12 +98,12 @@ if __name__ == '__main__':
     cv_precision = map(lambda x: precision_score(x[0], x[1]), ys)
     cv_roc_auc = map(lambda x: roc_auc_score(x[0], x[1]), ys)
 
-    f = open("data.txt",'a')
+    f = open("cv.txt",'a')
     if (base == "trainX.npy"):
-      f.write(metodo + " NULL 0 ")
+      f.write(metodo + " NULL 0 " + str(cv) + " ")
     else:
       name = base.split(".")
-      f.write(metodo + " " + name[0] + " " + name[1] + " ")
+      f.write(metodo + " " + name[0] + " " + name[1] + " " + str(cv) + " ")
     f.write(str(np.mean(times)) + " ")
     f.write(str(np.mean(cv_precision)) + " ")
     f.write(str(np.mean(cv_recall)) + " ")
@@ -117,22 +117,6 @@ if __name__ == '__main__':
     f.write(str(np.std(cv_accuracy)) + " ")
     f.write(str(np.std(cv_roc_auc)) + "\n")
     exit()
-
-
-    start = time.time()
-    res = cross_val_predict(clf, X, y, cv=cv)
-    end = time.time()
-    testn = map(lambda x : ( 1 if x == 'ham' else 0 ), y)
-    predn = map(lambda x : ( 1 if x == 'ham' else 0 ), res)
-    print testn
-    print predn
-    f = open("data.txt",'a')
-    name = metodo.split(".")
-    if (len(name) > 2):
-      f.write(name[0] + " " + name[1] + " " + name[2] + " ")
-    else:
-      f.write(name[0] + " NULL 0 ")
-    f.close()
   else:
     print u'¿Qué método querés?'
     exit()

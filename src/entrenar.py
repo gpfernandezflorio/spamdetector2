@@ -55,7 +55,7 @@ else:
   path = ""
 
 def guardar_modelo(metodo, base):
-  str_file = path + metodo + base + '.pickle'
+  str_file = path + metodo + "." + base + '.pickle'
   fout = open(str_file,'w')
   pickle.dump(clf,fout)
   fout.close()
