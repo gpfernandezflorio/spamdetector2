@@ -21,17 +21,20 @@ Sobre la base de train sacamos las palabras más frecuentes para tener como atri
    * Variando M entre PCA y ICA.
    * Variando n entre 1,2,3,4,5,10,15,25,50 y 100
    * Genera los archivos M.n.npy
-5. Ejecutar python validar.py M B n
-   * Variando M entre Dtree, Rforest, Nbayes, Knn, Svc y Gsearch con cada uno de los anteriores.
+
+# TODO
+5. Ejecutar gridSearch.py
+
+6. Ejecutar python validar.py M B
+   * Variando M entre Dtree, Rforest, Nbayes, Knn, Svc
    * Variando B entre trainX.npy y cada base generada en el paso anterior.
-   * Variando n entre 5,10 y 20
    * Escribe en cv.txt las métricas resultantes de validar el modelo para ser ploteadas.
-6. Ejecutar entrenar.py M B
+7. Ejecutar entrenar.py M B
    * Variando M entre cada uno de los métodos seleccionados.
    * Con B la base seleccionada para cada método.
 
 # TODO
-7. Ejecutar predecir.py
+8. Ejecutar predecir.py
 
 # TODO
-8. Ejecutar ploter.py
+9. Ejecutar ploter.py

@@ -17,16 +17,7 @@
   * Tras ejecutarlo, revisar el archivo de salida y reemplazar las apariciones de ' por \', dentro de los strings.
 """
 
-import json
-import numpy as np
-from collections import Counter
-import pandas as pd
-
-import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
-
-estoy_en_los_labos = True
+from variables import *
 
 if estoy_en_los_labos:
     train = np.load('/media/libre/aa/train.npy')

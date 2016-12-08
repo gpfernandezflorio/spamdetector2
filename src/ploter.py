@@ -5,7 +5,7 @@
 # Segundo cuatrimestre 2016
 
 """
-  Modulo de TP Spam Detector. [8] Ploter.
+  Modulo de TP Spam Detector. [9] Ploter.
 
   Descripción: Grafica resultados.
 
