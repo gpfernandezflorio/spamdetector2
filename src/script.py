@@ -18,6 +18,15 @@ for M in ["PCA","ICA"]:
     print("python reducirDimensiones.py " + M + " " + str(n))
     os.system("python reducirDimensiones.py " + M + " " + str(n))
 
+print "Grid Search"
+for M in ["Dtree","Rforest","Nbayes","Knn"]:
+  print("python gridSearch.py " + M)
+  os.system("python gridSearch.py " + M)
+  for B in ["PCA","ICA"]:
+    for n in [1,2,3,4,5,10,20,40,60,80,100]:
+      print("python gridSearch.py " + M + " " + B + "." + str(n) + ".npy")
+      os.system("python gridSearch.py " + M + " " + B + "." + str(n) + ".npy")
+
 print "Validar modelos"
 for M in ["Dtree","Rforest","Nbayes","Knn"]:
   print("python validar.py " + M)

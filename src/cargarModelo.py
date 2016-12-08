@@ -6,7 +6,17 @@
 
 from variables import *
 
-def cargarModelo(metodo):
+import os.path
+
+def cargarModelo(metodo, base=None):
+  bp = {}
+  if base == None:
+    f = 'gs'+metodo+'.param'
+  else:
+    name = base.split('.')
+    f = 'gs'+metodo+'.'+name[0]+'.'+name[1]+'.param'
+  if os.path.isfile(f):
+    bp = np.load(f)
   if metodo == 'Dtree':
     clf = DecisionTreeClassifier()
   elif metodo == 'Rforest':
@@ -17,4 +27,6 @@ def cargarModelo(metodo):
     clf = GaussianNB()
   elif metodo == 'Svc':
     clf = SVC(max_iter=100)
+  for k in bp:
+    clf.set_params(**{k:bp[k]})
   return clf

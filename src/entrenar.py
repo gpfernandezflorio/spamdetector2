@@ -54,10 +54,4 @@ if __name__ == '__main__':
   clf.fit(X, y)
   end = time.time()
 
-  #d = datetime.datetime.now()
-  #f = open("data.txt",'a')
-  #f.write("<" + str(d.day) + "/" + str(d.month) + "/" + str(d.year) + " " + str(d.hour) + "hs>\n")
-  #f.write(metodo + " NULL " + str(0) + " " + str(end - start))
-  #f.write("\n")
-  #f.close()
   guardar_modelo(metodo, base)
