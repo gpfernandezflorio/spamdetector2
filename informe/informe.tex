@@ -1,0 +1,84 @@
+\documentclass[10pt, a4paper]{article}
+\usepackage[utf8x]{inputenc}            % Acentos, ñ, etc.
+\usepackage{graphicx}                   % Gráficos
+\usepackage[spanish]{babel}             % Macros en español
+\usepackage{caratula}                   % Carátula
+\usepackage{float}
+\begin{document}
+
+%Caratula
+\titulo{Trabajo Práctico 1 - Reentrega}
+\subtitulo{Detección de Spam}
+\fecha{\today}
+\materia{Aprendizaje Automático}
+\integrante{Fernández, Gonzalo}{836/10}{gpfernandezflorio@gmail.com}
+\integrante{Damian, Aleman}{377/10}{damianealeman@gmail.com}
+\integrante{Matías, Pizzagalli}{257/10}{matipizza@gmail.com}
+
+%Titulo e indice
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Introducción}
+
+Este trabajo práctico consiste en analizar distintas estrategias para implementar un algoritmo de reconocimiento de spam utilizando técnicas de clasificación de aprendizaje supervisado. El objetivo es obtener un programa lea el contenido de un correo electrónico y logre clasificarlo correctamente como \texttt{ham} o \texttt{spam}. Para lograrlo, debemos entrenar a los algoritmos con una base de correos etiquetados, provista por la cátedra de la materia.
+
+\section{Metodología}
+
+Para entrenar satisfactoriamente un algoritmo de aprendizaje supervisado, lo primero que se debe hacer es determinar los atributos que el algoritmo debe tener en cuenta para clasificar instancias. En el problema de detección de spam, estos atributos podrían ser la cantidad de apariciones de determinadas palabras. Si bien podríamos pensar cuáles podrían ser esas palabras, se nos ocurrió hacer un programa que las identifique. En otras palabras, hicimos un script que \textit{elige} los atributos que vamos a seleccionar. En la primera entrega cometimos el error de ejecutar este script sobre toda la base de entrada, antes de retirar una fracción de ella para validación. Esto provocó que la base de validación no cumpliera su objetivo de contener datos frescos.
+Para la reentrega, invertimos el orden de esas acciones, ignorando completamente cualquier resultado anterior. Además, dividimos el script principal en varios subscripts, cada uno con una funcionalidad específica correspondiente a un paso del desarrollo del trabajo. En el archivo \texttt{README.md} figuran las instrucciones con el modo de uso y la descripción de cada script.
+
+\subsection{Base de validación}
+
+El primer paso del desarrollo de este trabajo práctico es la extracción del conjunto de datos para validación. El script \texttt{cortaBase.py} carga los archivos de la base \texttt{ham\_dev.json} y \texttt{spam\_dev.json}, genera un único dataframe etiquetado y extrae un $20\%$ del mismo como base de validación. Esta se almacena en el archovo \texttt{test.npy}, mientras que el resto de la base, la base de desarrollo se almacena en el archivo \texttt{train.npy}. Ahora sí podemos elegir los atributos para el entrenamiento, a partir de analizar los correos en la base de desarrollo.
+
+\subsection{Selección de atributos}
+
+El script \texttt{wordCounter.py} lee la base de desarrollo \texttt{train.npy} y cuenta la cantidad de apariciones de cada palabra en cada clase. Al final decidimos quedarnos con los atributos correspondientes a la cantidad de apariciones de 200 palabras:
+
+\begin{itemize}
+\item De las palabras que sólo aparecen en la clase spam, las 100 con mayor cantidad de apariciones.
+\item De las palabras que aparecen en ambas clases, las 100 con mayor proporción de apariciones en spam sobre apariciones en ham.
+\end{itemize}
+
+Este script genera el archivo \texttt{attributes.py} que contiene las variables y funciones necesarias para extraer los atributos de cada instancia. También utilizamos el atributo longitud.
+
+Por otro lado, el script \texttt{cargaAtributos.py} toma la base de desarrollo \texttt{train.npy} y la convierte en una matriz de instancias por atributos utilizando los atributos designados en \texttt{attributes.py}. Almacena esta matriz en el archivo \texttt{trainX.npy} y el vector de etiquetas en el archivo \texttt{trainy.npy}. Luego hace lo mismo con la base de validación, almacenando el resultado en los archivos \texttt{testX.npy} y \texttt{testy.npy}. De esta forma, la dejamos formateada para cuando la necesitemos al final de la experimentación.
+
+\subsection{Reducción de dimensionalidad}
+
+El siguiente paso consiste en obtener bases de desarrollo y validación con menor cantidad de atributos, pero con la misma cantidad de información (o reduciendo todo lo posible la pérdida de información). Para ello se utilizaron dos técnicas de reducción de dimensionalidad. El script \texttt{reducirDimensiones.py} toma las matrices de atributos \texttt{trainX.npy} y \texttt{testX.npy} y las reduce aplicando alguna de estas dos técnicas. Toma como parámetros el método a utilizar (PCA o ICA) y la cantidad de componentes (10 por defecto). Almacena las matrices resultantes en archivos llamados \texttt{M.n.npy} y \texttt{M.n-test.npy} siendo \texttt{M} el método y \texttt{n} la cantidad de componentes.
+
+\subsection{Modelos}
+
+%TODO!
+Antes de entrenar los modelos sobre las bases, debimos determinar los mejores hiperparámetros para cada modelo. Eso lo hace el script \texttt{gridSearch.py} que toma como
+%parámetros un método y una base
+%parámetro un método
+y escribe en un archivo los mejores parámetros obtenidos haciendo grid search sobre ese modelo. El nombre del archivo consiste en
+%el nombre del método seguido de un punto, seguido del nombre de la base.
+%el nombre del método.
+A continuación se detallan los algoritmos utilizados junto con los hiperparámetros elegidos para cada uno.
+%TODO!
+\begin{description}
+\item [Decision Tree] max\_depth: 14 16 o None, min\_samples\_split: 3, criterion: entropy
+\item [Random Forest] max\_depth: None, min\_smaples\_split: 4,5, criterion: entropy, max\_features: 95 , n\_estimators: 80
+\item [Naive Bayes]
+\item [Vecinos Más Cercanos(KNN)]  n\_neighbors: 4, weights: distance
+\item [Support Vector Machines (SVM)]
+\end{description}
+
+Ahora pasamos a la parte de evaluar los modelos según las distintas métricas vistas en clase. El script \texttt{validar.py} ejecuta cross validation sobre un modelo y una base para luego escribir en el archivo \texttt{cv.txt} el tiempo que le demoró entrenar al modelo y las medias y varianzas de cada una de las métricas. La información contenida en este archivo será utilizada luego para generar los gráficos de la sección \textbf{Resultados}. El script toma como parámetros el método, la base y la cantidad de folds (10 por defecto).
+
+A partir de los resultados obtenidos, determinaremos sobre qué base se comporta mejor cada algoritmo. Entonces pasaremos a guardar los modelos entrenados. El script \texttt{entrenar.py} toma un método y una base y almacena en un archivo el modelo entrenado en esa base. Estos modelos entrenados pueden utilizarse para clasificar nuevas instancias con el script \texttt{predecir.py} que toma como parámetro un archivo \texttt{.pickle} y una base y devuelve el vector de etiquetas para cada instancia de la base. Además, si se le pasa también un vector de etiquetas como parámetro, escribe en un archivo los valores de las métricas. Este script lo usaremos al final de la experimentación para clasificar las instancias en la base de validación.
+
+\subsection{Gráficos}
+
+Finalmente, tenemos el script \texttt{ploter.py} que lee el archivo \texttt{cv.txt} generado en la fase de cross validation y genera los archivos \texttt{.dat} que utilizará gnuplot para graficar toda esta información. En la carpeta \texttt{data} se encuentran todos los archivos de datos correspondientes y los archivos de gnuplot necesarios para volver a generar los gráficos.
+
+\section{Resultados}
+
+q onda?
+
+\end{document}
