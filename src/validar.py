@@ -64,22 +64,22 @@ if __name__ == '__main__':
 
     f = open("cv.txt",'a')
     if (base == "trainX.npy"):
-      f.write(metodo + " NULL 0 " + str(cv) + " ")
+      f.write(metodo + " NULL 0 ")
     else:
       name = base.split(".")
-      f.write(metodo + " " + name[0] + " " + name[1] + " " + str(cv) + " ")
-    f.write(str(np.mean(times)) + " ")
-    f.write(str(np.mean(cv_precision)) + " ")
-    f.write(str(np.mean(cv_recall)) + " ")
-    f.write(str(np.mean(cv_f1)) + " ")
-    f.write(str(np.mean(cv_accuracy)) + " ")
-    f.write(str(np.mean(cv_roc_auc)) + " ")
-    f.write(str(np.std(times)) + " ")
-    f.write(str(np.std(cv_precision)) + " ")
-    f.write(str(np.std(cv_recall)) + " ")
-    f.write(str(np.std(cv_f1)) + " ")
-    f.write(str(np.std(cv_accuracy)) + " ")
-    f.write(str(np.std(cv_roc_auc)))
+      f.write(metodo + " " + name[0] + " " + name[1] + " ")
+    f.write(str(np.mean(times)) + " ")        # 3
+    f.write(str(np.mean(cv_precision)) + " ") # 4
+    f.write(str(np.mean(cv_recall)) + " ")    # 5
+    f.write(str(np.mean(cv_f1)) + " ")        # 6
+    f.write(str(np.mean(cv_accuracy)) + " ")  # 7
+    f.write(str(np.mean(cv_roc_auc)) + " ")   # 8
+    f.write(str(np.std(times)) + " ")         # 9
+    f.write(str(np.std(cv_precision)) + " ")  # 10
+    f.write(str(np.std(cv_recall)) + " ")     # 11
+    f.write(str(np.std(cv_f1)) + " ")         # 12
+    f.write(str(np.std(cv_accuracy)) + " ")   # 13
+    f.write(str(np.std(cv_roc_auc)))          # 14
     f.write("\n")
     exit()
   else:

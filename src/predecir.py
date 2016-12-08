@@ -25,8 +25,10 @@
 
 from variables import *
 
-def predecir(metodo, base):
-  # TODO: Esto no va acá! debería estar al final, con la parte de cross validation
+#TODO: if label == None, sólo imprimir la predicción.
+      # else: usar label para calcular las métricas y guardarlas en un archivo con el mismo estilo que validar
+
+def predecir(metodo, base, label):
   testX = np.load(path + base)
   clf = pickle.load(open(path + metodo + base.replace("test","train") + '.pickle'))
   start = time.time()
@@ -37,12 +39,8 @@ def predecir(metodo, base):
   predn = map(lambda x : ( 1 if x == 'ham' else 0 ), predy)
   d = datetime.datetime.now()
   f = open("data.txt",'a')
-  #f.write("<" + str(d.day) + "/" + str(d.month) + "/" + str(d.year) + " " + str(d.hour) + "hs>\n")
-  #f.write(metodo + " " + base + "\n")
-  #TODO: obtener RedDim y cant_comp a partir del nombre de la base
   f.write(metodo + " " + redDim + " " + cant_comp + " ")
   f.write(str(end - start) + " ")
-  #TODO: calcular prec, acc, roc, f1, recall... promedio y varianza con CV
   f.write(str(precision_score(testn, predn)) + " ")
   f.write(str(recall_score(testn, predn)) + " ")
   f.write(str(f1_score(testn, predn)) + " ")
@@ -54,26 +52,18 @@ if __name__ == '__main__':
   if len(sys.argv) > 1:
     metodo = sys.argv[1]
     n = 2
-    # TEST
-    if metodo == 'Test':
-      base = "testX.npy"
+    base = "testX.npy"
+    label = None
+    if len(sys.argv) > n:
+      base = sys.argv[n]
+      n = n + 1
       if len(sys.argv) > n:
-        metodo = sys.argv[n]
+        label = sys.argv[n]
         n = n + 1
-      else:
-        print u'¿Qué método querés?'
-        exit()
-      if len(sys.argv) > n:
-        base = sys.argv[n]
-        n = n + 1
-      else:
-        print u'¿Qué base querés?'
-        exit()
-      predecir(metodo, base)
-      exit()
     else:
-      print "error"
+      print u'¿Qué base querés?'
       exit()
+    predecir(metodo, base, label)
+    exit()
   else:
     print u'¿Qué método querés?'
-    exit()

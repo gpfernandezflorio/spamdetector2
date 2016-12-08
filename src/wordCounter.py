@@ -71,21 +71,16 @@ for t in proportions_list:
     h = h+1
     st1 += "'a" + str(h) + "',"
     st3 += "a" + str(h) + ","
-    #st2 += "def a" + str(h) + "(txt): return txt.count('" + t[0].replace("'","\\'") + "')\n"
-    st2 += "def a" + str(h) + "(txt): return txt.count('" + t[0] + "')\n"
+    st2 += "def a" + str(h) + "(txt): return txt.count('" + t[0].replace("'","\\'") + "')\n"
     if h == cant_words:
         break
 for t in spam_words_list:
     h = h+1
     st1 += "'a" + str(h) + "',"
     st3 += "a" + str(h) + ","
-    #st2 += "def a" + str(h) + "(txt): return txt.count('" + t[0].replace("'","\\'") + "')\n"
-    st2 += "def a" + str(h) + "(txt): return txt.count('" + t[0] + "')\n"
+    st2 += "def a" + str(h) + "(txt): return txt.count('" + t[0].replace("'","\\'") + "')\n"
 st1= st1[0:-1] + "]"
 st3= st3[0:-1] + "]"
-#print st1
-#print st2
-#print st3
 f = open('attributes.py','w')
 f.write(st1+u'\n'+st2+u'\n'+st3)
 f.close()

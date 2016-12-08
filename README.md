@@ -8,7 +8,6 @@ Sobre la base de train sacamos las palabras más frecuentes para tener como atri
 
 ### INSTRUCCIONES:
 
-
 1. Ejecutar python cortaBase.py (esto sólo se hace una vez)
    * Genera train.npy y test.npy nuestras bases de train y test. Ya las tenemos guardadas en Drive
 2.  Ejecutar python wordCounter.py
@@ -31,12 +30,14 @@ Sobre la base de train sacamos las palabras más frecuentes para tener como atri
    * Variando M entre Dtree, Rforest, Nbayes, Knn, Svc
    * Variando B entre trainX.npy y cada base generada en el paso 4.
    * Escribe en cv.txt las métricas resultantes de validar el modelo para ser ploteadas.
-7. Ejecutar entrenar.py M B
+7. Ejecutar python entrenar.py M B
    * Variando M entre cada uno de los métodos seleccionados.
    * Con B la base seleccionada para cada método.
 
 # TODO
-8. Ejecutar predecir.py
+8. Ejecutar python predecir.py
 
-# TODO
-9. Ejecutar ploter.py
+9. Ejecutar python ploter.py
+  * Genera en la carpeta data, todos los archivos .dat
+10. Ejecutar, dentro de la carpeta data, python plotall.py
+  * gnuplotea todos los gráficos

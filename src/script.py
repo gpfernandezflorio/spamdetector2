@@ -37,3 +37,7 @@ for M in ["Dtree","Rforest","Nbayes","Knn"]:
     for n in [5,10]:
       print("python entrenar.py " + M + " " + B + "." + str(n) + ".npy")
       os.system("python entrenar.py " + M + " " + B + "." + str(n) + ".npy")
+
+print "Plotear medidas de la validacion"
+print("python ploter.py")
+os.system("python ploter.py")
