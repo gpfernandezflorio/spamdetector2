@@ -24,9 +24,11 @@
 from variables import *
 
 if __name__ == '__main__':
-  max_iter=100
   if len(sys.argv) > 1:
     metodo = sys.argv[1]
+    if metodo != 'Dtree' and metodo != 'Rforest' and metodo != 'Knn' and metodo != 'Nbayes' and metodo != 'Svc':
+      print u'Método inválido'
+      exit()
     cv = 10
     base = "trainX.npy"
     n = 2
@@ -44,7 +46,7 @@ if __name__ == '__main__':
     ys = []
     times = []
     for train_idx, valid_idx in cv_arg:
-      clf = cargarModelo(False, metodo, max_iter)
+      clf = cargarModelo(metodo)
       start = time.time()
       clf.fit(X[train_idx], y[train_idx])
       end = time.time()

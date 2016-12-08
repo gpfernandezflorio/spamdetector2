@@ -10,7 +10,9 @@
   Descripción: Determina las palabras más "spam".
 
   Uso: python wordCounter.py
-  * si estoy_en_los_labos los va a buscar en /media/libre/aa/.
+
+  Requiere el archivo train.npy
+  * si estoy_en_los_labos lo va a buscar en /media/libre/aa/.
   * si no, en el mismo directorio.
 
   Output: attributes.py

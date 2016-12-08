@@ -15,7 +15,7 @@
   * si estoy_en_los_labos los va a buscar en /media/libre/aa/.
   * si no, en el mismo directorio.
 
-  Output: trainX.npy | testX.npy | trainy.npy | testy.npy
+  Output: trainX.npy, testX.npy, trainy.npy y testy.npy
   * si estoy_en_los_labos los guarda en /media/libre/aa/.
   * si no, en el mismo directorio.
 """
@@ -33,23 +33,13 @@ def cargando_atributos(idf):
   return X, y
 
 def leer_base():
-  if estoy_en_los_labos:
-    train = np.load('/media/libre/aa/train.npy')
-    test = np.load('/media/libre/aa/test.npy')
-  else:
-    train = np.load('train.npy')
-    test = np.load('test.npy')
+  train = np.load(path + 'train.npy')
+  test = np.load(path + 'test.npy')
   trainX, trainy = cargando_atributos(train)
   testX, testy = cargando_atributos(test)
-  if estoy_en_los_labos:
-    np.save('/media/libre/aa/trainX', trainX)
-    np.save('/media/libre/aa/trainy', trainy)
-    np.save('/media/libre/aa/testX', testX)
-    np.save('/media/libre/aa/testy', testy)
-  else:
-    np.save('trainX', trainX)
-    np.save('trainy', trainy)
-    np.save('testX', testX)
-    np.save('testy', testy)
+  np.save(path + 'trainX', trainX)
+  np.save(path + 'trainy', trainy)
+  np.save(path + 'testX', testX)
+  np.save(path + 'testy', testy)
 if __name__ == '__main__':
   leer_base()

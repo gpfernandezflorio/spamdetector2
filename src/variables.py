@@ -26,6 +26,8 @@ from cargarModelo import *
 estoy_en_los_labos = True
 prueba_full = True
 
+max_iter=100
+
 if estoy_en_los_labos:
   path = "/media/libre/aa/"
 else:

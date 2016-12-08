@@ -9,10 +9,9 @@
 
   Descripción: Entrena un modelo.
 
-  Uso: python entrenar.py METODO [BASE=trainX.npy] [MAXITER=100]
+  Uso: python entrenar.py METODO [BASE=trainX.npy]
   * Siendo METODO alguno de los siguientes: Dtree, Rforest, Nbayes, Knn o Svc.
   * Siendo BASE la base con la que entrenar (debe ser un archivo .npy existente) (trainX.npy por defecto).
-  * Siendo MAXITER la máxima cantidad de iteraciones (100 por defecto)
 
   Requiere el archivo trainX.npy (o el pasado por parámetro).
   * si estoy_en_los_labos lo va a buscar en /media/libre/aa/.
@@ -24,8 +23,7 @@
   * si no, en el mismo directorio.
 """
 
-# TODO: eliminar lo de Gsearch!
-import variables
+from variables import *
 
 def guardar_modelo(metodo, base):
   str_file = path + metodo + "." + base + '.pickle'
@@ -37,16 +35,7 @@ def guardar_modelo(metodo, base):
 if __name__ == '__main__':
   if len(sys.argv) > 1:
     metodo = sys.argv[1]
-    gs = False
     n = 2
-    if metodo == 'Gsearch':
-      if len(sys.argv) > n:
-        metodo = sys.argv[n]
-      else:
-        print u'¿Qué método querés?'
-        exit()
-      gs = True
-      n = n + 1
   else:
     print u'¿Qué método querés?'
     exit()
@@ -57,15 +46,10 @@ if __name__ == '__main__':
   if len(sys.argv) > n:
     base = sys.argv[n]
     n = n + 1
-  if len(sys.argv) > n:
-    maxiter = int(sys.argv[n])
-    n = n + 1
-  else:
-    maxiter = 100
   X = np.load(path + base)
   y = np.load(path + 'trainy.npy')
 
-  clf = cargarModelo(gs, metodo, max_iter)
+  clf = cargarModelo(metodo)
   start = time.time()
   clf.fit(X, y)
   end = time.time()

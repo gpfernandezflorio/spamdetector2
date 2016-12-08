@@ -17,7 +17,7 @@
   * si estoy_en_los_labos los va a buscar en /media/libre/aa/.
   * si no, en el mismo directorio.
 
-  Output: NAME.npy NAME-test.npy
+  Output: NAME.npy y NAME-test.npy
   * Siendo NAME el nombre del archivo, compuesto por el nombre del método y la cantidad de componentes.
   * si estoy_en_los_labos los guarda en /media/libre/aa/.
   * si no, en el mismo directorio.

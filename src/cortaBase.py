@@ -11,7 +11,11 @@
 
   Uso: python cortaBase.py
 
-  Output: train.npy | test.npy
+  Requiere los archivos ham_dev y spam_dev.json
+  * Si estoy_en_los_labos los va a buscar en /media/libre/aa/.
+  * si no, en el directorio superior.
+
+  Output: train.npy y test.npy
   * si estoy_en_los_labos los guarda en /media/libre/aa/.
   * si no, en el mismo directorio.
 """
