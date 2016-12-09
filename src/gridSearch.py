@@ -44,32 +44,26 @@ if __name__ == '__main__':
     N = int(name[1])
     f = 'gs'+metodo+'.'+name[0]+'.'+name[1]+'.param'
 
-  # print clf.get_params().keys()
-  # exit()
   param_grid = {}
   if metodo == 'Dtree':
-    # max_depth: 14 16 o None, min_samples_split: 3, criterion: entropy
-    param_grid = {"max_depth": [14,15,16,None],
-      "max_features": filter (lambda x: x < N, [164,166,168,170,None]),
-      "min_samples_split": [3],
+    param_grid = {"max_depth": [1,5,10,15,20,None],
+      "max_features": filter (lambda x: x < N, [1,50,100,150,None]),
+      "min_samples_split": [1,2,3,4,5],
       "criterion": ["gini", "entropy"]}
   elif metodo == 'Rforest':
-    # max_depth: None, min_smaples_split: 4,5, criterion: entropy, max_features: 95
-    # , n_estimators: 80 (y si le sigo aumentado sigue agarrando el maximo)
-    param_grid = {"max_depth": [14,16,None],
-      "max_features": filter (lambda x: x < N, [90,95,100,105,None]),
-      "min_samples_split": [3,4,5],
+    param_grid = {"max_depth": [1,5,10,15,20,None],
+      "max_features": filter (lambda x: x < N, [1,50,100,150,None]),
+      "min_samples_split": [1,2,3,4,5],
       "criterion": ["gini","entropy"],
-      "n_estimators": [20,30,40,80]}
+      "n_estimators": [10,50,100,150]}
   elif metodo == 'Knn':
-    # n_neighbors: 4, weights: distance
-    param_grid = {"n_neighbors": [3,4,5],
+    param_grid = {"n_neighbors": [1,2,3,4,5],
       "weights": ["uniform", "distance"]}
   elif metodo == 'Nbayes':
-    param_grid = {"max_depth": [1,2],
-      "max_features": filter (lambda x: x < N, [10,15]),
-      "min_samples_split": [1,3],
-      "criterion": ["gini", "entropy"]}
+    print "Sorry, no puedo hacer grid search con Naive Bayes."
+  elif metodo == 'Svc':
+    param_grid = {"kernel": ["linear","poly","rbf","sigmoid"],
+      "max_iter": [10,50,100]}
   clf = cargarModelo(metodo)
   clf = GridSearchCV(clf, param_grid=param_grid,n_jobs=-1,verbose=0)
   clf.fit(X, y)
