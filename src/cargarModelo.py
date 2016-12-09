@@ -11,10 +11,10 @@ import os.path
 def cargarModelo(metodo, base=None):
   bp = {}
   if base == None:
-    f = 'gs'+metodo+'.param'
+    f = 'gs/gs'+metodo+'.param'
   else:
     name = base.split('.')
-    f = 'gs'+metodo+'.'+name[0]+'.'+name[1]+'.param'
+    f = 'gs/gs'+metodo+'.'+name[0]+'.'+name[1]+'.param'
   if os.path.isfile(f):
     bp = np.load(f)
   if metodo == 'Dtree':
@@ -26,7 +26,7 @@ def cargarModelo(metodo, base=None):
   elif metodo == 'Nbayes':
     clf = GaussianNB()
   elif metodo == 'Svc':
-    clf = SVC(max_iter=100)
+    clf = SVC()
   for k in bp:
     clf.set_params(**{k:bp[k]})
   return clf

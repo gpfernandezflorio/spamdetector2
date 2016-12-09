@@ -38,11 +38,11 @@ if __name__ == '__main__':
 
   N = 201
   if base == "trainX.npy":
-    f = 'gs'+metodo+'.param'
+    f = 'gs/gs'+metodo+'.param'
   else:
     name = base.split('.')
     N = int(name[1])
-    f = 'gs'+metodo+'.'+name[0]+'.'+name[1]+'.param'
+    f = 'gs/gs'+metodo+'.'+name[0]+'.'+name[1]+'.param'
 
   param_grid = {}
   if metodo == 'Dtree':
@@ -63,7 +63,7 @@ if __name__ == '__main__':
     print "Sorry, no puedo hacer grid search con Naive Bayes."
   elif metodo == 'Svc':
     param_grid = {"kernel": ["linear","poly","rbf","sigmoid"],
-      "max_iter": [10,50,100]}
+      "max_iter": [10,50,100,500,1000]}
   clf = cargarModelo(metodo)
   clf = GridSearchCV(clf, param_grid=param_grid,n_jobs=-1,verbose=0)
   clf.fit(X, y)
