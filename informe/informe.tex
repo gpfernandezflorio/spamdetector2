@@ -90,60 +90,60 @@ A continuación se detallan los algoritmos utilizados junto con los valores expl
   \end{itemize}
 \end{itemize}
 
-En la siguiente tabla se muestran los mejores hiperparámetros obtenidos con cada método sobre cada base:\\\\
+En la siguiente tabla se muestran los mejores hiperparámetros obtenidos con cada método sobre cada base\footnote{Se omite la columna \texttt{weights} del método \textbf{KNN} ya que en todos los casos el resultado obtenido para dicho parámetros fue \texttt{distance}.}:\\\\
 
 \begin{scriptsize}
-\begin{tabular}{|r|l||c|c|c|c||c|c|c|c|c||c|c||c|c|}
+\begin{tabular}{|r|l||c|c|c|c||c|c|c|c|c||c||c|c|}
 \hline
-\multicolumn{2}{|c||}{ } & \multicolumn{4}{|c||}{Árbol de Decisión} & \multicolumn{5}{|c||}{Random Forest} & \multicolumn{2}{|c||}{KNN}& \multicolumn{2}{|c|}{SVM}\\
+\multicolumn{2}{|c||}{ } & \multicolumn{4}{|c||}{Árbol de Decisión} & \multicolumn{5}{|c||}{Random Forest} & KNN & \multicolumn{2}{|c|}{SVM}\\
 \hline
-\multicolumn{2}{|c||}{ } & \rotatebox{270}{max\_depth} & \rotatebox{270}{max\_features} & \rotatebox{270}{min\_samples\_split} & \rotatebox{270}{criterion} & \rotatebox{270}{max\_depth} & \rotatebox{270}{max\_features} & \rotatebox{270}{min\_samples\_split} & \rotatebox{270}{criterion} & \rotatebox{270}{n\_estimators} & \rotatebox{270}{n\_neighbors} & \rotatebox{270}{weights} & \rotatebox{270}{kernel} & \rotatebox{270}{max\_iter} \\
+\multicolumn{2}{|c||}{ } & \rotatebox{270}{max\_depth} & \rotatebox{270}{max\_features} & \rotatebox{270}{min\_samples\_split} & \rotatebox{270}{criterion} & \rotatebox{270}{max\_depth} & \rotatebox{270}{max\_features} & \rotatebox{270}{min\_samples\_split} & \rotatebox{270}{criterion} & \rotatebox{270}{n\_estimators} & \rotatebox{270}{n\_neighbors} & \rotatebox{270}{kernel} & \rotatebox{270}{max\_iter} \\
 \hline
-\multicolumn{2}{|c||}{trainX} & None & 100 & 5 & entropy & MD & MF & MSS & C & NE & 2 & distance & rbf & 1000\\
+\multicolumn{2}{|c||}{trainX} & None & 100 & 5 & entropy & MD & MF & MSS & C & NE & 2 & rbf & 1000\\
 \hline
-PCA & 1 & 10 & None & 1 & gini & MD & MF & MSS & C & NE & 5 & distance & poly & 1000 \\
+PCA & 1 & 10 & None & 1 & gini & MD & MF & MSS & C & NE & 5 & poly & 1000 \\
 \hline
-PCA & 2 & None & None & 2 & gini & MD & MF & MSS & C & NE & 2 & distance & rbf & 1000 \\
+PCA & 2 & None & None & 2 & gini & MD & MF & MSS & C & NE & 2 & rbf & 1000 \\
 \hline
-PCA & 3 & None & None & 1 & entropy & MD & MF & MSS & C & NE & 2 & distance & sigmoid & 10 \\
+PCA & 3 & None & None & 1 & entropy & MD & MF & MSS & C & NE & 2 & sigmoid & 10 \\
 \hline
-PCA & 4 & 20 & None & 1 & gini & MD & MF & MSS & C & NE & 2 & distance & sigmoid & 10 \\
+PCA & 4 & 20 & None & 1 & gini & MD & MF & MSS & C & NE & 2 & sigmoid & 10 \\
 \hline
-PCA & 5 & None & None & 1 & entropy & MD & MF & MSS & C & NE & 2 & distance & poly & 1000 \\
+PCA & 5 & None & None & 1 & entropy & MD & MF & MSS & C & NE & 2 & poly & 1000 \\
 \hline
-PCA & 10 & 20 & None & 1 & entropy & MD & MF & MSS & C & NE & 2 & distance & rbf & 1000 \\
+PCA & 10 & 20 & None & 1 & entropy & MD & MF & MSS & C & NE & 2 & rbf & 1000 \\
 \hline
-PCA & 20 & 20 & None & 2 & gini & MD & MF & MSS & C & NE & 2 & distance & rbf & 1000 \\
+PCA & 20 & 20 & None & 2 & gini & MD & MF & MSS & C & NE & 2 & rbf & 1000 \\
 \hline
-PCA & 40 & 20 & None & 1 & entropy & MD & MF & MSS & C & NE & 2 & distance & linear & 500 \\
+PCA & 40 & 20 & None & 1 & entropy & MD & MF & MSS & C & NE & 2 & linear & 500 \\
 \hline
-PCA & 60 & 20 & 50 & 2 & entropy & MD & MF & MSS & C & NE & 2 & distance & rbf & 1000 \\
+PCA & 60 & 20 & 50 & 2 & entropy & MD & MF & MSS & C & NE & 2 & rbf & 1000 \\
 \hline
-PCA & 80 & 20 & 50 & 4 & gini & MD & MF & MSS & C & NE & 2 & distance & rbf & 1000 \\
+PCA & 80 & 20 & 50 & 4 & gini & MD & MF & MSS & C & NE & 2 & rbf & 1000 \\
 \hline
-PCA & 100 & 15 & None & 1 & gini & MD & MF & MSS & C & NE & 2 & distance & rbf & 500 \\
+PCA & 100 & 15 & None & 1 & gini & MD & MF & MSS & C & NE & 2 & rbf & 500 \\
 \hline
-ICA & 1 & 5 & None & 1 & entropy & MD & MF & MSS & C & NE & 3 & distance & linear & 10 \\
+ICA & 1 & 5 & None & 1 & entropy & MD & MF & MSS & C & NE & 3 & linear & 10 \\
 \hline
-ICA & 2 & None & None & 2 & entropy & MD & MF & MSS & C & NE & 5 & distance & linear & 10 \\
+ICA & 2 & None & None & 2 & entropy & MD & MF & MSS & C & NE & 5 & linear & 10 \\
 \hline
-ICA & 3 & None & None & 2 & gini & MD & MF & MSS & C & NE & 5 & distance & linear & 10 \\
+ICA & 3 & None & None & 2 & gini & MD & MF & MSS & C & NE & 5 & linear & 10 \\
 \hline
-ICA & 4 & None & None & 4 & gini & MD & MF & MSS & C & NE & 4 & distance & linear & 10 \\
+ICA & 4 & None & None & 4 & gini & MD & MF & MSS & C & NE & 4 & linear & 10 \\
 \hline
-ICA & 5 & None & None & 3 & entropy & MD & MF & MSS & C & NE & 4 & distance & linear & 500 \\
+ICA & 5 & None & None & 3 & entropy & MD & MF & MSS & C & NE & 4 & linear & 500 \\
 \hline
-ICA & 10 & 20 & None & 3 & entropy & MD & MF & MSS & C & NE & 4 & distance & linear & 1000 \\
+ICA & 10 & 20 & None & 3 & entropy & MD & MF & MSS & C & NE & 4 & linear & 1000 \\
 \hline
-ICA & 20 & 20 & None & 3 & entropy & MD & MF & MSS & C & NE & 4 & distance & linear & 100 \\
+ICA & 20 & 20 & None & 3 & entropy & MD & MF & MSS & C & NE & 4 & linear & 100 \\
 \hline
-ICA & 40 & 20 & None & 3 & entropy & MD & MF & MSS & C & NE & 4 & distance & linear & 10 \\
+ICA & 40 & 20 & None & 3 & entropy & MD & MF & MSS & C & NE & 4 & linear & 10 \\
 \hline
-ICA & 60 & 20 & 50 & 1 & entropy & MD & MF & MSS & C & NE & 5 & distance & linear & 10 \\
+ICA & 60 & 20 & 50 & 1 & entropy & MD & MF & MSS & C & NE & 5 & linear & 10 \\
 \hline
-ICA & 80 & 20 & None & 3 & gini & MD & MF & MSS & C & NE & 4 & distance & linear & 10 \\
+ICA & 80 & 20 & None & 3 & gini & MD & MF & MSS & C & NE & 4 & linear & 10 \\
 \hline
-ICA & 100 & 20 & None & 5 & gini & MD & MF & MSS & C & NE & 4 & distance & linear & 10 \\
+ICA & 100 & 20 & None & 5 & gini & MD & MF & MSS & C & NE & 4 & linear & 10 \\
 \hline
 \end{tabular}
 \end{scriptsize}
