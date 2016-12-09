@@ -50,25 +50,104 @@ Por otro lado, el script \texttt{cargaAtributos.py} toma la base de desarrollo \
 
 El siguiente paso consiste en obtener bases de desarrollo y validación con menor cantidad de atributos, pero con la misma cantidad de información (o reduciendo todo lo posible la pérdida de información). Para ello se utilizaron dos técnicas de reducción de dimensionalidad. El script \texttt{reducirDimensiones.py} toma las matrices de atributos \texttt{trainX.npy} y \texttt{testX.npy} y las reduce aplicando alguna de estas dos técnicas. Toma como parámetros el método a utilizar (PCA o ICA) y la cantidad de componentes (10 por defecto). Almacena las matrices resultantes en archivos llamados \texttt{M.n.npy} y \texttt{M.n-test.npy} siendo \texttt{M} el método y \texttt{n} la cantidad de componentes.
 
+Mediante el uso de este script se generaron 22 bases reducidas (11 con PCA y 11 con ICA). Las cantidades de componentes utilizadas fueron 1, 2, 3, 4, 5, 10, 20, 40, 60, 80 y 100.
+
 \subsection{Modelos}
 
-%TODO!
-Antes de entrenar los modelos sobre las bases, debimos determinar los mejores hiperparámetros para cada modelo. Eso lo hace el script \texttt{gridSearch.py} que toma como
-%parámetros un método y una base
-%parámetro un método
-y escribe en un archivo los mejores parámetros obtenidos haciendo grid search sobre ese modelo. El nombre del archivo consiste en
-%el nombre del método seguido de un punto, seguido del nombre de la base.
-%el nombre del método.
-A continuación se detallan los algoritmos utilizados junto con los hiperparámetros elegidos para cada uno.
-%TODO!
-\begin{description}
-\item [Decision Tree] max\_depth: 14 16 o None, min\_samples\_split: 3, criterion: entropy
-\item [Random Forest] max\_depth: None, min\_smaples\_split: 4,5, criterion: entropy, max\_features: 95 , n\_estimators: 80
-\item [Naive Bayes]
-\item [Vecinos Más Cercanos(KNN)]  n\_neighbors: 4, weights: distance
-\item [Support Vector Machines (SVM)]
-\end{description}
+Antes de entrenar los modelos sobre las bases, debimos determinar los mejores hiperparámetros para cada modelo. Eso lo hace el script \texttt{gridSearch.py} que toma como parámetros un método y una base y escribe en un archivo los mejores parámetros obtenidos haciendo grid search sobre ese modelo. El nombre del archivo consiste en el nombre del método seguido de un punto, seguido del nombre de la base.
+A continuación se detallan los algoritmos utilizados junto con los valores explorados para cada uno de sus hiperparámetros.
 
+\begin{itemize}
+\item Árbol de Decisión (implementado con la clase \textbf{DecisionTreeClassifier}) \\
+  Hiperparámetros:
+  \begin{itemize}
+    \item \textbf{max\_depth}: 1, 5, 10, 15, 20, None
+    \item \textbf{max\_features}: 1, 50, 100, 150, None
+    \item \textbf{min\_samples\_split}: 1, 2, 3, 4, 5
+    \item \textbf{criterion}: entropy, gini
+  \end{itemize}
+\item Random Forest (implementado con la clase \textbf{RandomForestClassifier}) \\
+  Hiperparámetros:
+  \begin{itemize}
+    \item \textbf{max\_depth}: 1, 5, 10, 15, 20, None
+    \item \textbf{max\_features}: 1, 50, 100, 150, None
+    \item \textbf{min\_samples\_split}: 1, 2, 3, 4, 5
+    \item \textbf{criterion}: entropy, gini
+    \item \textbf{n\_estimators}: 10, 50, 100, 150
+  \end{itemize}
+\item Naive Bayes (implementado con la clase \textbf{GaussianNB})
+\item Vecinos más Cercanos (implementado con la clase \textbf{KNeighborsClassifier}) \\
+  Hiperparámetros:
+  \begin{itemize}
+    \item \textbf{n\_neighbors}: 1, 2, 3, 4, 5
+    \item \textbf{weights}: uniform, distance
+  \end{itemize}
+\item Support Vector Machines (implementado con la clase \textbf{SVC}) \\
+  Hiperparámetros:
+  \begin{itemize}
+    \item \textbf{kernel}: linear, poly, rbf, sigmoid
+    \item \textbf{max\_iter}: 10, 50, 100, 500, 1000
+  \end{itemize}
+\end{itemize}
+
+En la siguiente tabla se muestran los mejores hiperparámetros obtenidos con cada método sobre cada base:\\\\
+
+\begin{scriptsize}
+\begin{tabular}{|r|l||c|c|c|c||c|c|c|c|c||c|c||c|c|}
+\hline
+\multicolumn{2}{|c||}{ } & \multicolumn{4}{|c||}{Árbol de Decisión} & \multicolumn{5}{|c||}{Random Forest} & \multicolumn{2}{|c||}{KNN}& \multicolumn{2}{|c|}{SVM}\\
+\hline
+\multicolumn{2}{|c||}{ } & \rotatebox{270}{max\_depth} & \rotatebox{270}{max\_features} & \rotatebox{270}{min\_samples\_split} & \rotatebox{270}{criterion} & \rotatebox{270}{max\_depth} & \rotatebox{270}{max\_features} & \rotatebox{270}{min\_samples\_split} & \rotatebox{270}{criterion} & \rotatebox{270}{n\_estimators} & \rotatebox{270}{n\_neighbors} & \rotatebox{270}{weights} & \rotatebox{270}{kernel} & \rotatebox{270}{max\_iter} \\
+\hline
+\multicolumn{2}{|c||}{trainX} & None & 100 & 5 & entropy & MD & MF & MSS & C & NE & 2 & distance & rbf & 1000\\
+\hline
+PCA & 1 & 10 & None & 1 & gini & MD & MF & MSS & C & NE & 5 & distance & poly & 1000 \\
+\hline
+PCA & 2 & None & None & 2 & gini & MD & MF & MSS & C & NE & 2 & distance & rbf & 1000 \\
+\hline
+PCA & 3 & None & None & 1 & entropy & MD & MF & MSS & C & NE & 2 & distance & sigmoid & 10 \\
+\hline
+PCA & 4 & 20 & None & 1 & gini & MD & MF & MSS & C & NE & 2 & distance & sigmoid & 10 \\
+\hline
+PCA & 5 & None & None & 1 & entropy & MD & MF & MSS & C & NE & 2 & distance & poly & 1000 \\
+\hline
+PCA & 10 & 20 & None & 1 & entropy & MD & MF & MSS & C & NE & 2 & distance & rbf & 1000 \\
+\hline
+PCA & 20 & 20 & None & 2 & gini & MD & MF & MSS & C & NE & 2 & distance & rbf & 1000 \\
+\hline
+PCA & 40 & 20 & None & 1 & entropy & MD & MF & MSS & C & NE & 2 & distance & linear & 500 \\
+\hline
+PCA & 60 & 20 & 50 & 2 & entropy & MD & MF & MSS & C & NE & 2 & distance & rbf & 1000 \\
+\hline
+PCA & 80 & 20 & 50 & 4 & gini & MD & MF & MSS & C & NE & 2 & distance & rbf & 1000 \\
+\hline
+PCA & 100 & 15 & None & 1 & gini & MD & MF & MSS & C & NE & 2 & distance & rbf & 500 \\
+\hline
+ICA & 1 & 5 & None & 1 & entropy & MD & MF & MSS & C & NE & 3 & distance & linear & 10 \\
+\hline
+ICA & 2 & None & None & 2 & entropy & MD & MF & MSS & C & NE & 5 & distance & linear & 10 \\
+\hline
+ICA & 3 & None & None & 2 & gini & MD & MF & MSS & C & NE & 5 & distance & linear & 10 \\
+\hline
+ICA & 4 & None & None & 4 & gini & MD & MF & MSS & C & NE & 4 & distance & linear & 10 \\
+\hline
+ICA & 5 & None & None & 3 & entropy & MD & MF & MSS & C & NE & 4 & distance & linear & 500 \\
+\hline
+ICA & 10 & 20 & None & 3 & entropy & MD & MF & MSS & C & NE & 4 & distance & linear & 1000 \\
+\hline
+ICA & 20 & 20 & None & 3 & entropy & MD & MF & MSS & C & NE & 4 & distance & linear & 100 \\
+\hline
+ICA & 40 & 20 & None & 3 & entropy & MD & MF & MSS & C & NE & 4 & distance & linear & 10 \\
+\hline
+ICA & 60 & 20 & 50 & 1 & entropy & MD & MF & MSS & C & NE & 5 & distance & linear & 10 \\
+\hline
+ICA & 80 & 20 & None & 3 & gini & MD & MF & MSS & C & NE & 4 & distance & linear & 10 \\
+\hline
+ICA & 100 & 20 & None & 5 & gini & MD & MF & MSS & C & NE & 4 & distance & linear & 10 \\
+\hline
+\end{tabular}
+\end{scriptsize}
+\\\\
 Ahora pasamos a la parte de evaluar los modelos según las distintas métricas vistas en clase. El script \texttt{validar.py} ejecuta cross validation sobre un modelo y una base para luego escribir en el archivo \texttt{cv.txt} el tiempo que le demoró entrenar al modelo y las medias y varianzas de cada una de las métricas. La información contenida en este archivo será utilizada luego para generar los gráficos de la sección \textbf{Resultados}. El script toma como parámetros el método, la base y la cantidad de folds (10 por defecto).
 
 A partir de los resultados obtenidos, determinaremos sobre qué base se comporta mejor cada algoritmo. Entonces pasaremos a guardar los modelos entrenados. El script \texttt{entrenar.py} toma un método y una base y almacena en un archivo el modelo entrenado en esa base. Estos modelos entrenados pueden utilizarse para clasificar nuevas instancias con el script \texttt{predecir.py} que toma como parámetro un archivo \texttt{.pickle} y una base y devuelve el vector de etiquetas para cada instancia de la base. Además, si se le pasa también un vector de etiquetas como parámetro, escribe en un archivo los valores de las métricas. Este script lo usaremos al final de la experimentación para clasificar las instancias en la base de validación.

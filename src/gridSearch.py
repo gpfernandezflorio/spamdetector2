@@ -13,7 +13,12 @@
   * Siendo METODO alguno de los siguientes: Dtree, Rforest, Nbayes, Knn o Svc.
   * Siendo BASE la base contra la que validar (debe ser un archivo .npy existente) (trainX.npy por defecto).
 
-  Output: Imprime por pantalla los mejores parámetros
+  Requiere el archivo trainX.npy (o el pasado por parámetro).
+  * si estoy_en_los_labos lo va a buscar en /media/libre/aa/.
+  * si no, en el mismo directorio.
+
+  Output: gs/NAME.param
+  * Siendo NAME el nombre del archivo, compuesto por el nombre del método y la base.
 """
 
 from variables import *
