@@ -1,9 +1,10 @@
-set terminal png
+set terminal png size 300,400
 set output "roica.png"
 
 set logscale x
-
+unset key
 set yrange [0:1]
+set xlabel "ROC Area Under Curve"
 
 plot "dtroica.dat" w linespoints linetype 1 title "Decision Tree", "dtroica.dat" using 1:2:3 w errorbars linetype 1 title "", \
      "rfroica.dat" w linespoints linetype 2 title "Random Forest", "rfroica.dat" using 1:2:3 w errorbars linetype 2 title "", \

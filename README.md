@@ -23,9 +23,6 @@ Sobre la base de train sacamos las palabras más frecuentes para tener como atri
 5. Ejecutar gridSearch.py M B
    * Variando M entre Dtree, Rforest, Nbayes, Knn, Svc
    * Variando B entre trainX.npy y cada base generada en el paso 4.
-#Ojo que el grid search depende de la base. Hay que correrlo contra cada base (PCA,ICA).
-#Luego, vamos a tener los mejores parámetros de cada método sobbre cada base.
-#TODO: En lugar de que los imprima por pantalla, que los guarde en un archivo!
 6. Ejecutar python validar.py M B
    * Variando M entre Dtree, Rforest, Nbayes, Knn, Svc
    * Variando B entre trainX.npy y cada base generada en el paso 4.

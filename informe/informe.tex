@@ -90,6 +90,17 @@ A continuación se detallan los algoritmos utilizados junto con los valores expl
   \end{itemize}
 \end{itemize}
 
+Una vez definidos los mejores parámetros de cada método, pasamos a la parte de evaluar los modelos según las distintas métricas vistas en clase. El script \texttt{validar.py} ejecuta cross validation sobre un modelo y una base para luego escribir en el archivo \texttt{cv.txt} el tiempo que le demoró entrenar al modelo y las medias y varianzas de cada una de las métricas. La información contenida en este archivo será utilizada luego para generar los gráficos de la sección \textbf{Resultados}. El script toma como parámetros el método, la base y la cantidad de folds (10 por defecto).
+
+A partir de los resultados obtenidos, determinaremos sobre qué base se comporta mejor cada algoritmo. Entonces pasaremos a guardar los modelos entrenados. El script \texttt{entrenar.py} toma un método y una base y almacena en un archivo el modelo entrenado en esa base. Estos modelos entrenados pueden utilizarse para clasificar nuevas instancias con el script \texttt{predecir.py} que toma como parámetro un archivo \texttt{.pickle} y una base y devuelve el vector de etiquetas para cada instancia de la base. Además, si se le pasa también un vector de etiquetas como parámetro, escribe en un archivo los valores de las métricas. Este script lo usaremos al final de la experimentación para clasificar las instancias en la base de validación.
+
+\subsection{Gráficos}
+
+Finalmente, tenemos el script \texttt{ploter.py} que lee el archivo \texttt{cv.txt} generado en la fase de cross validation y genera los archivos \texttt{.dat} que utilizará gnuplot para graficar toda esta información. En la carpeta \texttt{data} se encuentran todos los archivos de datos correspondientes y los archivos de gnuplot necesarios para volver a generar los gráficos.
+
+\section{Resultados}
+
+\subsection{Grid Search}
 En la siguiente tabla se muestran los mejores hiperparámetros obtenidos con cada método sobre cada base\footnote{Se omite la columna \texttt{weights} del método \textbf{KNN} ya que en todos los casos el resultado obtenido para dicho parámetros fue \texttt{distance}.}:\\\\
 
 \begin{scriptsize}
@@ -147,17 +158,29 @@ ICA & 100 & 20 & None & 5 & gini & MD & MF & MSS & C & NE & 4 & linear & 10 \\
 \hline
 \end{tabular}
 \end{scriptsize}
-\\\\
-Ahora pasamos a la parte de evaluar los modelos según las distintas métricas vistas en clase. El script \texttt{validar.py} ejecuta cross validation sobre un modelo y una base para luego escribir en el archivo \texttt{cv.txt} el tiempo que le demoró entrenar al modelo y las medias y varianzas de cada una de las métricas. La información contenida en este archivo será utilizada luego para generar los gráficos de la sección \textbf{Resultados}. El script toma como parámetros el método, la base y la cantidad de folds (10 por defecto).
 
-A partir de los resultados obtenidos, determinaremos sobre qué base se comporta mejor cada algoritmo. Entonces pasaremos a guardar los modelos entrenados. El script \texttt{entrenar.py} toma un método y una base y almacena en un archivo el modelo entrenado en esa base. Estos modelos entrenados pueden utilizarse para clasificar nuevas instancias con el script \texttt{predecir.py} que toma como parámetro un archivo \texttt{.pickle} y una base y devuelve el vector de etiquetas para cada instancia de la base. Además, si se le pasa también un vector de etiquetas como parámetro, escribe en un archivo los valores de las métricas. Este script lo usaremos al final de la experimentación para clasificar las instancias en la base de validación.
+\subsection{Cross Validation}
 
-\subsection{Gráficos}
+\begin{figure}[H]
+\includegraphics[scale=0.6]{../src/data/refs.png}
+\end{figure}
 
-Finalmente, tenemos el script \texttt{ploter.py} que lee el archivo \texttt{cv.txt} generado en la fase de cross validation y genera los archivos \texttt{.dat} que utilizará gnuplot para graficar toda esta información. En la carpeta \texttt{data} se encuentran todos los archivos de datos correspondientes y los archivos de gnuplot necesarios para volver a generar los gráficos.
+\begin{figure}[H]
+\includegraphics[scale=0.6]{../src/data/tmica.png}
+\includegraphics[scale=0.6]{../src/data/tmpca.png}
+\end{figure}
 
-\section{Resultados}
-
-q onda?
+\begin{figure}[H]
+  \begin{minipage}{1\textwidth}
+  \center PCA\\
+	\includegraphics[scale=0.5]{../src/data/prpca.png}
+	\includegraphics[scale=0.5]{../src/data/f1pca.png}
+	\includegraphics[scale=0.5]{../src/data/ropca.png}
+  \center ICA\\
+	\includegraphics[scale=0.5]{../src/data/prica.png}
+	\includegraphics[scale=0.5]{../src/data/f1ica.png}
+	\includegraphics[scale=0.5]{../src/data/roica.png}
+  \end{minipage}
+\end{figure}
 
 \end{document}

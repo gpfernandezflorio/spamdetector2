@@ -1,9 +1,10 @@
-set terminal png
+set terminal png size 300,400
 set output "acpca.png"
 
 set logscale x
-
+unset key
 set yrange [0:1]
+set xlabel "Accuracy"
 
 plot "dtacpca.dat" w linespoints linetype 1 title "Decision Tree", "dtacpca.dat" using 1:2:3 w errorbars linetype 1 title "", \
      "rfacpca.dat" w linespoints linetype 2 title "Random Forest", "rfacpca.dat" using 1:2:3 w errorbars linetype 2 title "", \

@@ -21,12 +21,14 @@ import matplotlib.pyplot as plt
 
 M = 201
 
+tmica = {"Dtree":[None]*M,"Rforest":[None]*M,"Nbayes":[None]*M,"Knn":[None]*M,"Svc":[None]*M}
 f1ica = {"Dtree":[None]*M,"Rforest":[None]*M,"Nbayes":[None]*M,"Knn":[None]*M,"Svc":[None]*M}
 prica = {"Dtree":[None]*M,"Rforest":[None]*M,"Nbayes":[None]*M,"Knn":[None]*M,"Svc":[None]*M}
 reica = {"Dtree":[None]*M,"Rforest":[None]*M,"Nbayes":[None]*M,"Knn":[None]*M,"Svc":[None]*M}
 acica = {"Dtree":[None]*M,"Rforest":[None]*M,"Nbayes":[None]*M,"Knn":[None]*M,"Svc":[None]*M}
 roica = {"Dtree":[None]*M,"Rforest":[None]*M,"Nbayes":[None]*M,"Knn":[None]*M,"Svc":[None]*M}
 
+tmpca = {"Dtree":[None]*M,"Rforest":[None]*M,"Nbayes":[None]*M,"Knn":[None]*M,"Svc":[None]*M}
 f1pca = {"Dtree":[None]*M,"Rforest":[None]*M,"Nbayes":[None]*M,"Knn":[None]*M,"Svc":[None]*M}
 prpca = {"Dtree":[None]*M,"Rforest":[None]*M,"Nbayes":[None]*M,"Knn":[None]*M,"Svc":[None]*M}
 repca = {"Dtree":[None]*M,"Rforest":[None]*M,"Nbayes":[None]*M,"Knn":[None]*M,"Svc":[None]*M}
@@ -46,12 +48,14 @@ lines = [line.rstrip('\n') for line in open(fname,'r')]
 for line in lines:
 	data = line.split(" ")
 	if data[1] == "ICA":
+		tmica[data[0]][int(data[2])] = [data[3],data[9]]
 		f1ica[data[0]][int(data[2])] = [data[6],data[12]]
 		prica[data[0]][int(data[2])] = [data[4],data[10]]
 		reica[data[0]][int(data[2])] = [data[5],data[11]]
 		acica[data[0]][int(data[2])] = [data[7],data[13]]
 		roica[data[0]][int(data[2])] = [data[8],data[14]]
 	elif data[1] == "PCA":
+		tmpca[data[0]][int(data[2])] = [data[3],data[9]]
 		f1pca[data[0]][int(data[2])] = [data[6],data[12]]
 		prpca[data[0]][int(data[2])] = [data[4],data[10]]
 		repca[data[0]][int(data[2])] = [data[5],data[11]]
@@ -63,6 +67,58 @@ for line in lines:
 		re[data[0]] = [data[5],data[11]]
 		ac[data[0]] = [data[7],data[13]]
 		ro[data[0]] = [data[8],data[14]]
+
+f = open('data/dttmica.dat','w')
+for i in range(len(tmica["Dtree"])):
+  if not tmica["Dtree"][i] == None:
+    f.write(str(i) + " " + str(tmica["Dtree"][i][0]) + " " + str(tmica["Dtree"][i][1]) + "\n")
+f.close()
+f = open('data/rftmica.dat','w')
+for i in range(len(tmica["Rforest"])):
+  if not tmica["Rforest"][i] == None:
+    f.write(str(i) + " " + str(tmica["Rforest"][i][0]) + " " + str(tmica["Rforest"][i][1]) + "\n")
+f.close()
+f = open('data/nbtmica.dat','w')
+for i in range(len(tmica["Nbayes"])):
+  if not tmica["Nbayes"][i] == None:
+    f.write(str(i) + " " + str(tmica["Nbayes"][i][0]) + " " + str(tmica["Nbayes"][i][1]) + "\n")
+f.close()
+f = open('data/knntmica.dat','w')
+for i in range(len(tmica["Knn"])):
+  if not tmica["Knn"][i] == None:
+    f.write(str(i) + " " + str(tmica["Knn"][i][0]) + " " + str(tmica["Knn"][i][1]) + "\n")
+f.close()
+f = open('data/svctmica.dat','w')
+for i in range(len(tmica["Svc"])):
+  if not tmica["Svc"][i] == None:
+    f.write(str(i) + " " + str(tmica["Svc"][i][0]) + " " + str(tmica["Svc"][i][1]) + "\n")
+f.close()
+
+f = open('data/dttmpca.dat','w')
+for i in range(len(tmpca["Dtree"])):
+  if not tmpca["Dtree"][i] == None:
+    f.write(str(i) + " " + str(tmpca["Dtree"][i][0]) + " " + str(tmpca["Dtree"][i][1]) + "\n")
+f.close()
+f = open('data/rftmpca.dat','w')
+for i in range(len(tmpca["Rforest"])):
+  if not tmpca["Rforest"][i] == None:
+    f.write(str(i) + " " + str(tmpca["Rforest"][i][0]) + " " + str(tmpca["Rforest"][i][1]) + "\n")
+f.close()
+f = open('data/nbtmpca.dat','w')
+for i in range(len(tmpca["Nbayes"])):
+  if not tmpca["Nbayes"][i] == None:
+    f.write(str(i) + " " + str(tmpca["Nbayes"][i][0]) + " " + str(tmpca["Nbayes"][i][1]) + "\n")
+f.close()
+f = open('data/knntmpca.dat','w')
+for i in range(len(tmpca["Knn"])):
+  if not tmpca["Knn"][i] == None:
+    f.write(str(i) + " " + str(tmpca["Knn"][i][0]) + " " + str(tmpca["Knn"][i][1]) + "\n")
+f.close()
+f = open('data/svctmpca.dat','w')
+for i in range(len(tmpca["Svc"])):
+  if not tmpca["Svc"][i] == None:
+    f.write(str(i) + " " + str(tmpca["Svc"][i][0]) + " " + str(tmpca["Svc"][i][1]) + "\n")
+f.close()
 
 f = open('data/dtf1ica.dat','w')
 for i in range(len(f1ica["Dtree"])):
