@@ -52,7 +52,7 @@ El siguiente paso consiste en obtener bases de desarrollo y validación con meno
 
 Mediante el uso de este script se generaron 22 bases reducidas (11 con PCA y 11 con ICA). Las cantidades de componentes utilizadas fueron 1, 2, 3, 4, 5, 10, 20, 40, 60, 80 y 100.
 
-\subsection{Modelos}
+\subsection{Modelos} \label{modelos}
 
 Antes de entrenar los modelos sobre las bases, debimos determinar los mejores hiperparámetros para cada modelo. Eso lo hace el script \texttt{gridSearch.py} que toma como parámetros un método y una base y escribe en un archivo los mejores parámetros obtenidos haciendo grid search sobre ese modelo. El nombre del archivo consiste en el nombre del método seguido de un punto, seguido del nombre de la base.
 A continuación se detallan los algoritmos utilizados junto con los valores explorados para cada uno de sus hiperparámetros.
@@ -101,7 +101,8 @@ Finalmente, tenemos el script \texttt{ploter.py} que lee el archivo \texttt{cv.t
 \section{Resultados}
 
 \subsection{Grid Search}
-En la siguiente tabla se muestran los mejores hiperparámetros obtenidos con cada método sobre cada base\footnote{Se omite la columna \texttt{weights} del método \textbf{KNN} ya que en todos los casos el resultado obtenido para dicho parámetros fue \texttt{distance}.}:\\\\
+En la siguiente tabla se muestran los mejores hiperparámetros obtenidos con cada método sobre cada base\footnote{Se omite la columna \texttt{weights} del método \textbf{KNN} ya que en todos los casos el resultado obtenido para dicho parámetro fue \texttt{distance}.}.Los resultados que aquí se muestran fueron obtenidos ejecutando el script \texttt{gridSearch.py}, descripto en la sección \ref{modelos}.
+\\\\
 
 \begin{scriptsize}
 \begin{tabular}{|r|l||c|c|c|c||c|c|c|c|c||c||c|c|}
@@ -110,65 +111,87 @@ En la siguiente tabla se muestran los mejores hiperparámetros obtenidos con cad
 \hline
 \multicolumn{2}{|c||}{ } & \rotatebox{270}{max\_depth} & \rotatebox{270}{max\_features} & \rotatebox{270}{min\_samples\_split} & \rotatebox{270}{criterion} & \rotatebox{270}{max\_depth} & \rotatebox{270}{max\_features} & \rotatebox{270}{min\_samples\_split} & \rotatebox{270}{criterion} & \rotatebox{270}{n\_estimators} & \rotatebox{270}{n\_neighbors} & \rotatebox{270}{kernel} & \rotatebox{270}{max\_iter} \\
 \hline
-\multicolumn{2}{|c||}{trainX} & None & 100 & 5 & entropy & MD & MF & MSS & C & NE & 2 & rbf & 1000\\
+\multicolumn{2}{|c||}{trainX} & None & 100 & 5 & entropy & None & 1 & 5 & entropy & 150 & 2 & rbf & 1000\\
 \hline
-PCA & 1 & 10 & None & 1 & gini & MD & MF & MSS & C & NE & 5 & poly & 1000 \\
+PCA & 1 & 10 & None & 1 & gini & 10 & None & 1 & gini & 150 & 5 & poly & 1000 \\
 \hline
-PCA & 2 & None & None & 2 & gini & MD & MF & MSS & C & NE & 2 & rbf & 1000 \\
+PCA & 2 & None & None & 2 & gini & 20 & 1 & 2 & gini & 150 & 2 & rbf & 1000 \\
 \hline
-PCA & 3 & None & None & 1 & entropy & MD & MF & MSS & C & NE & 2 & sigmoid & 10 \\
+PCA & 3 & None & None & 1 & entropy & None & None & 1 & entropy & 100 & 2 & sigmoid & 10 \\
 \hline
-PCA & 4 & 20 & None & 1 & gini & MD & MF & MSS & C & NE & 2 & sigmoid & 10 \\
+PCA & 4 & 20 & None & 1 & gini & None & 1 & 1 & gini & 150 & 2 & sigmoid & 10 \\
 \hline
-PCA & 5 & None & None & 1 & entropy & MD & MF & MSS & C & NE & 2 & poly & 1000 \\
+PCA & 5 & None & None & 1 & entropy & None & None & 1 & entropy & 150 & 2 & poly & 1000 \\
 \hline
-PCA & 10 & 20 & None & 1 & entropy & MD & MF & MSS & C & NE & 2 & rbf & 1000 \\
+PCA & 10 & 20 & None & 1 & entropy & 20 & 1 & 1 & entropy & 150 & 2 & rbf & 1000 \\
 \hline
-PCA & 20 & 20 & None & 2 & gini & MD & MF & MSS & C & NE & 2 & rbf & 1000 \\
+PCA & 20 & 20 & None & 2 & gini & 20 & 1 & 2 & gini & 150 & 2 & rbf & 1000 \\
 \hline
-PCA & 40 & 20 & None & 1 & entropy & MD & MF & MSS & C & NE & 2 & linear & 500 \\
+PCA & 40 & 20 & None & 1 & entropy & 20 & None & 1 & entropy & 150 & 2 & linear & 500 \\
 \hline
-PCA & 60 & 20 & 50 & 2 & entropy & MD & MF & MSS & C & NE & 2 & rbf & 1000 \\
+PCA & 60 & 20 & 50 & 2 & entropy & 20 & 50 & 2 & entropy & 150 & 2 & rbf & 1000 \\
 \hline
-PCA & 80 & 20 & 50 & 4 & gini & MD & MF & MSS & C & NE & 2 & rbf & 1000 \\
+PCA & 80 & 20 & 50 & 4 & gini & 20 & 50 & 4 & gini & 150 & 2 & rbf & 1000 \\
 \hline
-PCA & 100 & 15 & None & 1 & gini & MD & MF & MSS & C & NE & 2 & rbf & 500 \\
+PCA & 100 & 15 & None & 1 & gini & 20 & 50 & 1 & gini & 150 & 2 & rbf & 500 \\
 \hline
-ICA & 1 & 5 & None & 1 & entropy & MD & MF & MSS & C & NE & 3 & linear & 10 \\
+ICA & 1 & 5 & None & 1 & entropy & 5 & None & 1 & entropy & 10 & 3 & linear & 10 \\
 \hline
-ICA & 2 & None & None & 2 & entropy & MD & MF & MSS & C & NE & 5 & linear & 10 \\
+ICA & 2 & None & None & 2 & entropy & None & None & 2 & entropy & 50 & 5 & linear & 10 \\
 \hline
-ICA & 3 & None & None & 2 & gini & MD & MF & MSS & C & NE & 5 & linear & 10 \\
+ICA & 3 & None & None & 2 & gini & 20 & None & 2 & gini & 150 & 5 & linear & 10 \\
 \hline
-ICA & 4 & None & None & 4 & gini & MD & MF & MSS & C & NE & 4 & linear & 10 \\
+ICA & 4 & None & None & 4 & gini & None & None & 4 & gini & 100 & 4 & linear & 10 \\
 \hline
-ICA & 5 & None & None & 3 & entropy & MD & MF & MSS & C & NE & 4 & linear & 500 \\
+ICA & 5 & None & None & 3 & entropy & None & None & 3 & entropy & 100 & 4 & linear & 500 \\
 \hline
-ICA & 10 & 20 & None & 3 & entropy & MD & MF & MSS & C & NE & 4 & linear & 1000 \\
+ICA & 10 & 20 & None & 3 & entropy & 20 & None & 3 & entropy & 100 & 4 & linear & 1000 \\
 \hline
-ICA & 20 & 20 & None & 3 & entropy & MD & MF & MSS & C & NE & 4 & linear & 100 \\
+ICA & 20 & 20 & None & 3 & entropy & None & 1 & 3 & entropy & 150 & 4 & linear & 100 \\
 \hline
-ICA & 40 & 20 & None & 3 & entropy & MD & MF & MSS & C & NE & 4 & linear & 10 \\
+ICA & 40 & 20 & None & 3 & entropy & 20 & None & 3 & entropy & 150 & 4 & linear & 10 \\
 \hline
-ICA & 60 & 20 & 50 & 1 & entropy & MD & MF & MSS & C & NE & 5 & linear & 10 \\
+ICA & 60 & 20 & 50 & 1 & entropy & 20 & 50 & 1 & entropy & 150 & 5 & linear & 10 \\
 \hline
-ICA & 80 & 20 & None & 3 & gini & MD & MF & MSS & C & NE & 4 & linear & 10 \\
+ICA & 80 & 20 & None & 3 & gini & 20 & 50 & 3 & gini & 150 & 4 & linear & 10 \\
 \hline
-ICA & 100 & 20 & None & 5 & gini & MD & MF & MSS & C & NE & 4 & linear & 10 \\
+ICA & 100 & 20 & None & 5 & gini & 20 & 50 & 5 & gini & 150 & 4 & linear & 10 \\
 \hline
 \end{tabular}
 \end{scriptsize}
 
 \subsection{Cross Validation}
 
+Las siguientes referencias valen para todos los gráficos de esta sección. Los resultados que aquí se muestran fueron obtenidos ejecutando el script \texttt{validar.py}, descripto en la sección \ref{modelos}.
+
 \begin{figure}[H]
 \includegraphics[scale=0.6]{../src/data/refs.png}
 \end{figure}
+
+\subsubsection{Tiempos de ejecución}
+
+Una característica importante de los modelos es el tiempo necesario para entrenar. Si bien no es crucial que se entrenen en poco tiempo, tampoco queremos esperarlo por siempre. Una de las cosas que mide el script \texttt{validar.py} al hacer Cross Validation, es la cantidad de segundos que dura la ejecución del método \texttt{fit}.
+
+En los siguientes gráficos se muestra la cantidad de tiempo en segundos que demoró cada método en entrenar sobre cada base. Cada punto corresponde al promedio de las 10 iteraciones de Cross Validation. También se grafica la varianza, aunque en la mayoría de los casos es casi inperceptible.
 
 \begin{figure}[H]
 \includegraphics[scale=0.6]{../src/data/tmica.png}
 \includegraphics[scale=0.6]{../src/data/tmpca.png}
 \end{figure}
+
+Ahora veamos cómo se comportan estos métodos sobre la base completa, sin reducir la dimensionalidad.
+
+\begin{figure}[H]
+\includegraphics[scale=0.6,angle=-90]{../src/data/tm.png}
+\end{figure}
+
+\subsubsection{Performance}
+
+Sobre cada fold de Cross Validation, el script \texttt{validar.py} calcula 5 métricas de performance vistas en clase. Estas son \textit{Precision}, \textit{Accuracy}, \textit{Recall}, \textit{F1} y \textit{ROC Area Under Curve}. Si bien generamos los gráficos para cada una de estas métricas, seleccionamos sólo algunos para mostrar en el informe. El resto puede encontrarse en la carpeta \texttt{src/data}. Los gráficos de \textit{Accuracy} resultaron ser casi idénticos a los de \textit{ROC Area Under Curve}, con lo cual nos quedamos sólo con el segundo.
+%TODO: Justificación de por qué no miramos recall.
+%Por otro lado, 
+
+En los siguientes gráficos se muestran los valores de \textit{Precision}, \textit{F1} y \textit{ROC Area Under Curve} para cada modelo comparando entre las bases generadas por \textit{PCA} y por \textit{ICA}. Una vez más, cada punto corresponde al promedio y la varianza de las 10 iteraciones del Cross Validation sobre una determinada base.
 
 \begin{figure}[H]
   \begin{minipage}{1\textwidth}
@@ -180,6 +203,16 @@ ICA & 100 & 20 & None & 5 & gini & MD & MF & MSS & C & NE & 4 & linear & 10 \\
 	\includegraphics[scale=0.5]{../src/data/prica.png}
 	\includegraphics[scale=0.5]{../src/data/f1ica.png}
 	\includegraphics[scale=0.5]{../src/data/roica.png}
+  \end{minipage}
+\end{figure}
+
+Ahora veamos cómo se comportan estos métodos sobre la base completa, sin reducir la dimensionalidad.
+
+\begin{figure}[H]
+  \begin{minipage}{1\textwidth}
+	\includegraphics[scale=0.5]{../src/data/pr.png}
+	\includegraphics[scale=0.5]{../src/data/f1.png}
+	\includegraphics[scale=0.5]{../src/data/ro.png}
   \end{minipage}
 \end{figure}
 

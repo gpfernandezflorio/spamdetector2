@@ -1,8 +1,8 @@
 set terminal png size 400,400
 set output "tmica.png"
 
-set logscale x
-set logscale y
+#set logscale x
+#set logscale y
 set ylabel "Tiempo (segundos)"
 set xlabel "Cantidad de Componentes"
 set title "ICA"

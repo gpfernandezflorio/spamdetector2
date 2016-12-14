@@ -35,6 +35,7 @@ repca = {"Dtree":[None]*M,"Rforest":[None]*M,"Nbayes":[None]*M,"Knn":[None]*M,"S
 acpca = {"Dtree":[None]*M,"Rforest":[None]*M,"Nbayes":[None]*M,"Knn":[None]*M,"Svc":[None]*M}
 ropca = {"Dtree":[None]*M,"Rforest":[None]*M,"Nbayes":[None]*M,"Knn":[None]*M,"Svc":[None]*M}
 
+tm = {}
 f1 = {}
 pr = {}
 re = {}
@@ -62,11 +63,138 @@ for line in lines:
 		acpca[data[0]][int(data[2])] = [data[7],data[13]]
 		ropca[data[0]][int(data[2])] = [data[8],data[14]]
 	elif data[1] == "NULL":
+		tm[data[0]] = [data[3],data[9]]
 		f1[data[0]] = [data[6],data[12]]
 		pr[data[0]] = [data[4],data[10]]
 		re[data[0]] = [data[5],data[11]]
 		ac[data[0]] = [data[7],data[13]]
 		ro[data[0]] = [data[8],data[14]]
+
+if "Dtree" in tm:
+  f = open('data/dttm.dat','w')
+  f.write(str(1) + ' "Decision Tree" ' + str(tm["Dtree"][0]) + " " + str(tm["Dtree"][1]) + "\n")
+  f.close()
+if "Rforest" in tm:
+  f = open('data/rftm.dat','w')
+  f.write(str(2) + ' "Random Forest" ' + str(tm["Rforest"][0]) + " " + str(tm["Rforest"][1]) + "\n")
+  f.close()
+if "Nbayes" in tm:
+  f = open('data/nbtm.dat','w')
+  f.write(str(3) + ' "Naive Bayes" ' + str(tm["Nbayes"][0]) + " " + str(tm["Nbayes"][1]) + "\n")
+  f.close()
+if "Knn" in tm:
+  f = open('data/knntm.dat','w')
+  f.write(str(4) + " KNN " + str(tm["Knn"][0]) + " " + str(tm["Knn"][1]) + "\n")
+  f.close()
+if "Svc" in tm:
+  f = open('data/svctm.dat','w')
+  f.write(str(5) + " SVM " + str(tm["Svc"][0]) + " " + str(tm["Svc"][1]) + "\n")
+  f.close()
+
+if "Dtree" in f1:
+  f = open('data/dtf1.dat','w')
+  f.write(str(1) + ' "Decision Tree" ' + str(f1["Dtree"][0]) + " " + str(f1["Dtree"][1]) + "\n")
+  f.close()
+if "Rforest" in f1:
+  f = open('data/rff1.dat','w')
+  f.write(str(2) + ' "Random Forest" ' + str(f1["Rforest"][0]) + " " + str(f1["Rforest"][1]) + "\n")
+  f.close()
+if "Nbayes" in f1:
+  f = open('data/nbf1.dat','w')
+  f.write(str(3) + ' "Naive Bayes" ' + str(f1["Nbayes"][0]) + " " + str(f1["Nbayes"][1]) + "\n")
+  f.close()
+if "Knn" in f1:
+  f = open('data/knnf1.dat','w')
+  f.write(str(4) + " KNN " + str(f1["Knn"][0]) + " " + str(f1["Knn"][1]) + "\n")
+  f.close()
+if "Svc" in f1:
+  f = open('data/svcf1.dat','w')
+  f.write(str(5) + " SVM " + str(f1["Svc"][0]) + " " + str(f1["Svc"][1]) + "\n")
+  f.close()
+
+if "Dtree" in pr:
+  f = open('data/dtpr.dat','w')
+  f.write(str(1) + ' "Decision Tree" ' + str(pr["Dtree"][0]) + " " + str(pr["Dtree"][1]) + "\n")
+  f.close()
+if "Rforest" in pr:
+  f = open('data/rfpr.dat','w')
+  f.write(str(2) + ' "Random Forest" ' + str(pr["Rforest"][0]) + " " + str(pr["Rforest"][1]) + "\n")
+  f.close()
+if "Nbayes" in pr:
+  f = open('data/nbpr.dat','w')
+  f.write(str(3) + ' "Naive Bayes" ' + str(pr["Nbayes"][0]) + " " + str(pr["Nbayes"][1]) + "\n")
+  f.close()
+if "Knn" in pr:
+  f = open('data/knnpr.dat','w')
+  f.write(str(4) + " KNN " + str(pr["Knn"][0]) + " " + str(pr["Knn"][1]) + "\n")
+  f.close()
+if "Svc" in pr:
+  f = open('data/svcpr.dat','w')
+  f.write(str(5) + " SVM " + str(pr["Svc"][0]) + " " + str(pr["Svc"][1]) + "\n")
+  f.close()
+
+if "Dtree" in re:
+  f = open('data/dtre.dat','w')
+  f.write(str(1) + ' "Decision Tree" ' + str(re["Dtree"][0]) + " " + str(re["Dtree"][1]) + "\n")
+  f.close()
+if "Rforest" in re:
+  f = open('data/rfre.dat','w')
+  f.write(str(2) + ' "Random Forest" ' + str(re["Rforest"][0]) + " " + str(re["Rforest"][1]) + "\n")
+  f.close()
+if "Nbayes" in re:
+  f = open('data/nbre.dat','w')
+  f.write(str(3) + ' "Naive Bayes" ' + str(re["Nbayes"][0]) + " " + str(re["Nbayes"][1]) + "\n")
+  f.close()
+if "Knn" in re:
+  f = open('data/knnre.dat','w')
+  f.write(str(4) + " KNN " + str(re["Knn"][0]) + " " + str(re["Knn"][1]) + "\n")
+  f.close()
+if "Svc" in re:
+  f = open('data/svcre.dat','w')
+  f.write(str(5) + " SVM " + str(re["Svc"][0]) + " " + str(re["Svc"][1]) + "\n")
+  f.close()
+
+if "Dtree" in ro:
+  f = open('data/dtro.dat','w')
+  f.write(str(1) + ' "Decision Tree" ' + str(ro["Dtree"][0]) + " " + str(ro["Dtree"][1]) + "\n")
+  f.close()
+if "Rforest" in ro:
+  f = open('data/rfro.dat','w')
+  f.write(str(2) + ' "Random Forest" ' + str(ro["Rforest"][0]) + " " + str(ro["Rforest"][1]) + "\n")
+  f.close()
+if "Nbayes" in ro:
+  f = open('data/nbro.dat','w')
+  f.write(str(3) + ' "Naive Bayes" ' + str(ro["Nbayes"][0]) + " " + str(ro["Nbayes"][1]) + "\n")
+  f.close()
+if "Knn" in ro:
+  f = open('data/knnro.dat','w')
+  f.write(str(4) + " KNN " + str(ro["Knn"][0]) + " " + str(ro["Knn"][1]) + "\n")
+  f.close()
+if "Svc" in ro:
+  f = open('data/svcro.dat','w')
+  f.write(str(5) + " SVM " + str(ro["Svc"][0]) + " " + str(ro["Svc"][1]) + "\n")
+  f.close()
+
+if "Dtree" in ac:
+  f = open('data/dtac.dat','w')
+  f.write(str(1) + ' "Decision Tree" ' + str(ac["Dtree"][0]) + " " + str(ac["Dtree"][1]) + "\n")
+  f.close()
+if "Rforest" in ac:
+  f = open('data/rfac.dat','w')
+  f.write(str(2) + ' "Random Forest" ' + str(ac["Rforest"][0]) + " " + str(ac["Rforest"][1]) + "\n")
+  f.close()
+if "Nbayes" in ac:
+  f = open('data/nbac.dat','w')
+  f.write(str(3) + ' "Naive Bayes" ' + str(ac["Nbayes"][0]) + " " + str(ac["Nbayes"][1]) + "\n")
+  f.close()
+if "Knn" in ac:
+  f = open('data/knnac.dat','w')
+  f.write(str(4) + " KNN " + str(ac["Knn"][0]) + " " + str(ac["Knn"][1]) + "\n")
+  f.close()
+if "Svc" in ac:
+  f = open('data/svcac.dat','w')
+  f.write(str(5) + " SVM " + str(ac["Svc"][0]) + " " + str(ac["Svc"][1]) + "\n")
+  f.close()
 
 f = open('data/dttmica.dat','w')
 for i in range(len(tmica["Dtree"])):
