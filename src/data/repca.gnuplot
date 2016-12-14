@@ -4,7 +4,7 @@ set output "repca.png"
 set logscale x
 unset key
 set yrange [0:1]
-set xlabel "Recall"
+set title "Recall"
 
 plot "dtrepca.dat" w linespoints linetype 1 title "Decision Tree", "dtrepca.dat" using 1:2:3 w errorbars linetype 1 title "", \
      "rfrepca.dat" w linespoints linetype 2 title "Random Forest", "rfrepca.dat" using 1:2:3 w errorbars linetype 2 title "", \

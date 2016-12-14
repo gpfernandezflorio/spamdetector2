@@ -4,7 +4,7 @@ set output "reica.png"
 set logscale x
 unset key
 set yrange [0:1]
-set xlabel "Recall"
+set title "Recall"
 
 plot "dtreica.dat" w linespoints linetype 1 title "Decision Tree", "dtreica.dat" using 1:2:3 w errorbars linetype 1 title "", \
      "rfreica.dat" w linespoints linetype 2 title "Random Forest", "rfreica.dat" using 1:2:3 w errorbars linetype 2 title "", \

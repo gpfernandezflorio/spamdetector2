@@ -19,7 +19,7 @@ for M in ["PCA","ICA"]:
     os.system("python reducirDimensiones.py " + M + " " + str(n))
 
 print "Grid Search"
-for M in ["Dtree","Rforest","Nbayes","Knn"]:
+for M in ["Dtree","Rforest","Nbayes","Knn","Svc"]:
   print("python gridSearch.py " + M)
   os.system("python gridSearch.py " + M)
   for B in ["PCA","ICA"]:
@@ -28,7 +28,7 @@ for M in ["Dtree","Rforest","Nbayes","Knn"]:
       os.system("python gridSearch.py " + M + " " + B + "." + str(n) + ".npy")
 
 print "Validar modelos"
-for M in ["Dtree","Rforest","Nbayes","Knn"]:
+for M in ["Dtree","Rforest","Nbayes","Knn","Svc"]:
   print("python validar.py " + M)
   os.system("python validar.py " + M)
   for B in ["PCA","ICA"]:
@@ -39,11 +39,11 @@ for M in ["Dtree","Rforest","Nbayes","Knn"]:
 exit()
 
 print "Entrenar modelos"
-for M in ["Dtree","Rforest","Nbayes","Knn"]:
+for M in ["Dtree","Rforest","Nbayes","Knn","Svc"]:
   print("python entrenar.py " + M)
   os.system("python entrenar.py " + M)
   for B in ["PCA","ICA"]:
-    for n in [5,10]:
+    for n in [10,100]:
       print("python entrenar.py " + M + " " + B + "." + str(n) + ".npy")
       os.system("python entrenar.py " + M + " " + B + "." + str(n) + ".npy")
 

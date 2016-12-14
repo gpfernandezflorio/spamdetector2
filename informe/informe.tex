@@ -4,6 +4,7 @@
 \usepackage[spanish]{babel}             % Macros en español
 \usepackage{caratula}                   % Carátula
 \usepackage{float}
+\usepackage[paper=a4paper, left=2cm, right=2cm, bottom=2cm, top=3.5cm]{geometry}
 \begin{document}
 
 %Caratula
@@ -90,7 +91,7 @@ A continuación se detallan los algoritmos utilizados junto con los valores expl
   \end{itemize}
 \end{itemize}
 
-Una vez definidos los mejores parámetros de cada método, pasamos a la parte de evaluar los modelos según las distintas métricas vistas en clase. El script \texttt{validar.py} ejecuta cross validation sobre un modelo y una base para luego escribir en el archivo \texttt{cv.txt} el tiempo que le demoró entrenar al modelo y las medias y varianzas de cada una de las métricas. La información contenida en este archivo será utilizada luego para generar los gráficos de la sección \textbf{Resultados}. El script toma como parámetros el método, la base y la cantidad de folds (10 por defecto).
+Una vez definidos los mejores parámetros de cada método, pasamos a la parte de evaluar los modelos según las distintas métricas vistas en clase. El script \texttt{validar.py} ejecuta cross validation sobre un modelo y una base para luego escribir en el archivo \texttt{cv.txt} el tiempo que le demoró entrenar al modelo y las medias y varianzas de cada una de las métricas. Los valores de las métricas se calcularon utilizando \textit{spam} como la etiqueta positiva. La información contenida en este archivo será utilizada luego para generar los gráficos de la sección \textbf{Resultados}. El script toma como parámetros el método, la base y la cantidad de folds (10 por defecto).
 
 A partir de los resultados obtenidos, determinaremos sobre qué base se comporta mejor cada algoritmo. Entonces pasaremos a guardar los modelos entrenados. El script \texttt{entrenar.py} toma un método y una base y almacena en un archivo el modelo entrenado en esa base. Estos modelos entrenados pueden utilizarse para clasificar nuevas instancias con el script \texttt{predecir.py} que toma como parámetro un archivo \texttt{.pickle} y una base y devuelve el vector de etiquetas para cada instancia de la base. Además, si se le pasa también un vector de etiquetas como parámetro, escribe en un archivo los valores de las métricas. Este script lo usaremos al final de la experimentación para clasificar las instancias en la base de validación.
 
@@ -178,13 +179,17 @@ Una característica importante de los modelos es el tiempo necesario para entren
 En los siguientes gráficos se muestra la cantidad de tiempo en segundos que demoró cada método en entrenar sobre cada base. Cada punto corresponde al promedio de las 10 iteraciones de Cross Validation. También se grafica la varianza, aunque en la mayoría de los casos es casi inperceptible.
 
 \begin{figure}[H]
-\includegraphics[scale=0.6]{../src/data/tmica.png}
+\centering
 \includegraphics[scale=0.6]{../src/data/tmpca.png}
+\includegraphics[scale=0.6]{../src/data/tmica.png}
 \end{figure}
+
+Tanto en las bases generadas con PCA como en las generadas por ICA, el tiempo de entrenamiento es creciente en función de la cantidad de componentes para todos los métodos, excepto Random Forest, el cual parece durar menos a mayor cantidad de componentes.
 
 Ahora veamos cómo se comportan estos métodos sobre la base completa, sin reducir la dimensionalidad.
 
 \begin{figure}[H]
+\centering
 \includegraphics[scale=0.6,angle=-90]{../src/data/tm.png}
 \end{figure}
 
@@ -197,38 +202,46 @@ En los siguientes gráficos se muestran los valores de \textit{Precision}, \text
 \begin{figure}[H]
   \begin{minipage}{1\textwidth}
   \center PCA\\
-	\includegraphics[scale=0.37]{../src/data/acpca.png}
-	\includegraphics[scale=0.37]{../src/data/prpca.png}
-	\includegraphics[scale=0.37]{../src/data/repca.png}
-	\includegraphics[scale=0.37]{../src/data/f1pca.png}
+	\includegraphics[scale=0.5]{../src/data/acpca.png}
+	\includegraphics[scale=0.5]{../src/data/prpca.png}
+	\includegraphics[scale=0.5]{../src/data/repca.png}
+	\includegraphics[scale=0.5]{../src/data/f1pca.png}
   \center ICA\\
-	\includegraphics[scale=0.37]{../src/data/acica.png}
-	\includegraphics[scale=0.37]{../src/data/prica.png}
-	\includegraphics[scale=0.37]{../src/data/reica.png}
-	\includegraphics[scale=0.37]{../src/data/f1ica.png}
+	\includegraphics[scale=0.5]{../src/data/acica.png}
+	\includegraphics[scale=0.5]{../src/data/prica.png}
+	\includegraphics[scale=0.5]{../src/data/reica.png}
+	\includegraphics[scale=0.5]{../src/data/f1ica.png}
   \end{minipage}
 \end{figure}
 
-Por un lado en el gráfico de Accuracy podemos observar que todos los métodos tienden a mejorar a médida que se incrementa la cantidad de componentes, aunque
-este incremento se torna despreciable a partir de la décima componente. El método de Naive Bayes es la excepeción.
+En general, todos los métodos tienden a mejorar a médida que se incrementa la cantidad de componentes, aunque este incremento se torna despreciable a partir de la décima componente. En los gráficos de accuracy se ve claramente esta tendencia.
+
+El método de Naive Bayes es la excepeción.
 En el caso de las bases generadas con PCA la métrica de accuracy es bastante baja sin importar la cantidad de componentes.
-Sin embargo, en el caso generado con ICA sí se nota el incremento en accuracy incluso después de la décima componente. Esto tiene sentido, ya que Naive Bayes asume que los atributos son independientes, y no necesariamente lo son. Como el método ICA genera componentes independientes, Naive Bayes tiene mejores resultados a diferencia de PCA.
+Sin embargo, en el caso generado con ICA sí se nota el incremento en accuracy incluso después de la décima componente. Esto tiene sentido, ya que Naive Bayes asume que los atributos son independientes, y no necesariamente lo son. Como el método ICA genera componentes independientes, Naive Bayes tiene mejores resultados a diferencia de PCA. Este mismo patrón puede verse en los gráficos de recall y f1 de ICA.
+
+Por otro lado, notamos que el método de SVM es altamente variable en la mayoría de las métricas sobre PCA. Es decir, que cada en cada fold se obtuvieron resultados muy dispares. Es curiosos considerando que en el resto de los casos la varianza es imperceptible. Otra particularidad de este método es
 
 Ahora veamos cómo se comportan estos métodos sobre la base completa, sin reducir la dimensionalidad.
 
 \begin{figure}[H]
   \begin{minipage}{1\textwidth}
-	\includegraphics[scale=0.37]{../src/data/ac.png}
-	\includegraphics[scale=0.37]{../src/data/pr.png}
-	\includegraphics[scale=0.37]{../src/data/re.png}
-	\includegraphics[scale=0.37]{../src/data/f1.png}
+	\includegraphics[scale=0.5]{../src/data/ac.png}
+	\includegraphics[scale=0.5]{../src/data/pr.png}
+	\includegraphics[scale=0.5]{../src/data/re.png}
+	\includegraphics[scale=0.5]{../src/data/f1.png}
   \end{minipage}
 \end{figure}
 
+\subsection{Validación}
+
+A partir de los resultados obtenidos en la sección anterior elegimos una base para cada método y lo entrenamos sobre esa base con el script \texttt{entrenar.py}. Decidimos basarnos principalmente en la métrica F1 para decidir qué base utilizar para cada método. Observando de cerca los gráficos (y los .dat que los generaron)determinamos...
+
+Luego utilizamos el script \texttt{predecir.py} para ejecutar, sobre la base de validación, cada clasificador entrenado.
 
 \section{Conclusiones}
 
-Despueés de notar que SVM tiene un recall casi perfecto en las bases de ICA para cualquier cantidad de componentes,
+Después de notar que SVM tiene un recall casi perfecto en las bases de ICA para cualquier cantidad de componentes,
 mientras que sus valores de Accuracy y Precision apenas superaban 0.5, concluímos que es importante tener en cuenta todas las métricas a 
 la hora de evaluar que tan bueno es un clasificador ya que restringirnos a una sola podría llevarnos a sobrestimar un clasificador.
 

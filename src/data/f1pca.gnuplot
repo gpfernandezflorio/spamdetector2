@@ -4,7 +4,7 @@ set output "f1pca.png"
 set logscale x
 unset key
 set yrange [0:1]
-set xlabel "F1"
+set title "F1"
 
 plot "dtf1pca.dat" w linespoints linetype 1 title "Decision Tree", "dtf1pca.dat" using 1:2:3 w errorbars linetype 1 title "", \
      "rff1pca.dat" w linespoints linetype 2 title "Random Forest", "rff1pca.dat" using 1:2:3 w errorbars linetype 2 title "", \

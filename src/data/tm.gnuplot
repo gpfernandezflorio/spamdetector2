@@ -1,4 +1,4 @@
-set terminal png size 200,700
+set terminal png size 200,1000
 set output "tm.png"
 
 set style line 1 lc rgb "purple"

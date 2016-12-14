@@ -1,11 +1,11 @@
 set terminal png size 400,400
 set output "tmpca.png"
 
-#set logscale x
-#set logscale y
+set logscale x
+set logscale y
 set ylabel "Tiempo (segundos)"
 set xlabel "Cantidad de Componentes"
-set title "ICA"
+set title "PCA"
 unset key
 
 plot "dttmpca.dat" w linespoints linetype 1 title "Decision Tree", "dttmpca.dat" using 1:2:3 w errorbars linetype 1 title "", \
