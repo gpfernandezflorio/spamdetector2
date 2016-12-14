@@ -1,0 +1,17 @@
+(dp0
+S'max_features'
+p1
+NsS'min_samples_split'
+p2
+I5
+sS'criterion'
+p3
+S'entropy'
+p4
+sS'max_depth'
+p5
+I20
+sS'n_estimators'
+p6
+I150
+s.

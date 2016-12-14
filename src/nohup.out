@@ -2626,3 +2626,26 @@ python validar.py Svc ICA.40.npy
 python validar.py Svc ICA.60.npy
 python validar.py Svc ICA.80.npy
 python validar.py Svc ICA.100.npy
+Rforest trainX.npy {'max_features': 1, 'min_samples_split': 5, 'criterion': 'gini', 'max_depth': None, 'n_estimators': 150}
+Rforest PCA.1.npy {'max_features': None, 'min_samples_split': 2, 'criterion': 'gini', 'max_depth': 10, 'n_estimators': 150}
+Rforest PCA.2.npy {'max_features': 1, 'min_samples_split': 1, 'criterion': 'gini', 'max_depth': 20, 'n_estimators': 150}
+Rforest PCA.3.npy {'max_features': None, 'min_samples_split': 4, 'criterion': 'gini', 'max_depth': None, 'n_estimators': 100}
+Rforest PCA.4.npy {'max_features': 1, 'min_samples_split': 5, 'criterion': 'gini', 'max_depth': None, 'n_estimators': 150}
+Rforest PCA.5.npy {'max_features': None, 'min_samples_split': 4, 'criterion': 'entropy', 'max_depth': None, 'n_estimators': 150}
+Rforest PCA.10.npy {'max_features': 1, 'min_samples_split': 2, 'criterion': 'gini', 'max_depth': 20, 'n_estimators': 150}
+Rforest PCA.20.npy {'max_features': 1, 'min_samples_split': 2, 'criterion': 'entropy', 'max_depth': 20, 'n_estimators': 150}
+Rforest PCA.40.npy {'max_features': None, 'min_samples_split': 5, 'criterion': 'entropy', 'max_depth': 20, 'n_estimators': 150}
+Rforest PCA.60.npy {'max_features': 50, 'min_samples_split': 4, 'criterion': 'entropy', 'max_depth': 20, 'n_estimators': 150}
+Rforest PCA.80.npy {'max_features': 50, 'min_samples_split': 5, 'criterion': 'entropy', 'max_depth': 20, 'n_estimators': 150}
+Rforest PCA.100.npy {'max_features': 50, 'min_samples_split': 5, 'criterion': 'entropy', 'max_depth': 20, 'n_estimators': 150}
+Rforest ICA.1.npy {'max_features': None, 'min_samples_split': 3, 'criterion': 'entropy', 'max_depth': 5, 'n_estimators': 10}
+Rforest ICA.2.npy {'max_features': None, 'min_samples_split': 5, 'criterion': 'entropy', 'max_depth': None, 'n_estimators': 50}
+Rforest ICA.3.npy {'max_features': None, 'min_samples_split': 1, 'criterion': 'gini', 'max_depth': 20, 'n_estimators': 150}
+Rforest ICA.4.npy {'max_features': None, 'min_samples_split': 4, 'criterion': 'entropy', 'max_depth': None, 'n_estimators': 100}
+Rforest ICA.100.npy {'max_features': 50, 'min_samples_split': 4, 'criterion': 'gini', 'max_depth': 20, 'n_estimators': 150}
+Rforest ICA.5.npy {'max_features': None, 'min_samples_split': 5, 'criterion': 'entropy', 'max_depth': None, 'n_estimators': 100}
+Rforest ICA.10.npy {'max_features': None, 'min_samples_split': 1, 'criterion': 'entropy', 'max_depth': 20, 'n_estimators': 100}
+Rforest ICA.20.npy {'max_features': 1, 'min_samples_split': 4, 'criterion': 'gini', 'max_depth': None, 'n_estimators': 150}
+Rforest ICA.40.npy {'max_features': None, 'min_samples_split': 4, 'criterion': 'entropy', 'max_depth': 20, 'n_estimators': 150}
+Rforest ICA.80.npy {'max_features': 50, 'min_samples_split': 2, 'criterion': 'gini', 'max_depth': 20, 'n_estimators': 150}
+Rforest ICA.60.npy {'max_features': 50, 'min_samples_split': 5, 'criterion': 'entropy', 'max_depth': 20, 'n_estimators': 150}
