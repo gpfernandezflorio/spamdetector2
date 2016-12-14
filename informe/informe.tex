@@ -13,7 +13,7 @@
 \materia{Aprendizaje Automático}
 \integrante{Fernández, Gonzalo}{836/10}{gpfernandezflorio@gmail.com}
 \integrante{Damian, Aleman}{377/10}{damianealeman@gmail.com}
-\integrante{Matías, Pizzagalli}{257/10}{matipizza@gmail.com}
+\integrante{Matías, Pizzagalli}{257/12}{matipizza@gmail.com}
 
 %Titulo e indice
 \maketitle
@@ -22,7 +22,7 @@
 
 \section{Introducción}
 
-Este trabajo práctico consiste en analizar distintas estrategias para implementar un algoritmo de reconocimiento de spam utilizando técnicas de clasificación de aprendizaje supervisado. El objetivo es obtener un programa lea el contenido de un correo electrónico y logre clasificarlo correctamente como \texttt{ham} o \texttt{spam}. Para lograrlo, debemos entrenar a los algoritmos con una base de correos etiquetados, provista por la cátedra de la materia.
+Este trabajo práctico consiste en analizar distintas estrategias para implementar un algoritmo de reconocimiento de spam utilizando técnicas de clasificación de aprendizaje supervisado. El objetivo es obtener un programa que lea el contenido de un correo electrónico y logre clasificarlo correctamente como \texttt{ham} o \texttt{spam}. Para lograrlo, debemos entrenar a los algoritmos con una base de correos etiquetados, provista por la cátedra de la materia.
 
 \section{Metodología}
 
@@ -98,7 +98,7 @@ A partir de los resultados obtenidos, determinaremos sobre qué base se comporta
 
 Finalmente, tenemos el script \texttt{ploter.py} que lee el archivo \texttt{cv.txt} generado en la fase de cross validation y genera los archivos \texttt{.dat} que utilizará gnuplot para graficar toda esta información. En la carpeta \texttt{data} se encuentran todos los archivos de datos correspondientes y los archivos de gnuplot necesarios para volver a generar los gráficos.
 
-\section{Resultados}
+\section{Resultados y Análisis}
 
 \subsection{Grid Search}
 En la siguiente tabla se muestran los mejores hiperparámetros obtenidos con cada método sobre cada base\footnote{Se omite la columna \texttt{weights} del método \textbf{KNN} ya que en todos los casos el resultado obtenido para dicho parámetro fue \texttt{distance}.}.Los resultados que aquí se muestran fueron obtenidos ejecutando el script \texttt{gridSearch.py}, descripto en la sección \ref{modelos}.
@@ -160,6 +160,9 @@ ICA & 100 & 20 & None & 5 & gini & 20 & 50 & 5 & gini & 150 & 4 & linear & 10 \\
 \end{tabular}
 \end{scriptsize}
 
+Notamos que el kernel de SVM elegido por GridSearch para las bases generadas con ICA es lineal en todos los casos.
+Por otro lado, nos llamó la atención que en la base con todos los atributos el método de random forest según GridSearch tiene como valor óptimo del atribiuto max\_features es 1, mientras que con el método de Decision Tree, a este atributo casi siempre se le asignaba el valor None (ningún máximo).
+
 \subsection{Cross Validation}
 
 Las siguientes referencias valen para todos los gráficos de esta sección. Los resultados que aquí se muestran fueron obtenidos ejecutando el script \texttt{validar.py}, descripto en la sección \ref{modelos}.
@@ -187,33 +190,49 @@ Ahora veamos cómo se comportan estos métodos sobre la base completa, sin reduc
 
 \subsubsection{Performance}
 
-Sobre cada fold de Cross Validation, el script \texttt{validar.py} calcula 5 métricas de performance vistas en clase. Estas son \textit{Precision}, \textit{Accuracy}, \textit{Recall}, \textit{F1} y \textit{ROC Area Under Curve}. Si bien generamos los gráficos para cada una de estas métricas, seleccionamos sólo algunos para mostrar en el informe. El resto puede encontrarse en la carpeta \texttt{src/data}. Los gráficos de \textit{Accuracy} resultaron ser casi idénticos a los de \textit{ROC Area Under Curve}, con lo cual nos quedamos sólo con el segundo.
-%TODO: Justificación de por qué no miramos recall.
-%Por otro lado, 
+Sobre cada fold de Cross Validation, el script \texttt{validar.py} calcula 5 métricas de performance vistas en clase. Estas son \textit{Precision}, \textit{Accuracy}, \textit{Recall}, \textit{F1} y \textit{ROC Area Under Curve}. Si bien generamos los gráficos para cada una de estas métricas, los gráficos de \textit{Accuracy} resultaron ser casi idénticos a los de \textit{ROC Area Under Curve}, con lo cual nos quedamos sólo con el primero. El resto de los gráficos pueden encontrarse en la carpeta \texttt{src/data}
 
-En los siguientes gráficos se muestran los valores de \textit{Precision}, \textit{F1} y \textit{ROC Area Under Curve} para cada modelo comparando entre las bases generadas por \textit{PCA} y por \textit{ICA}. Una vez más, cada punto corresponde al promedio y la varianza de las 10 iteraciones del Cross Validation sobre una determinada base.
+En los siguientes gráficos se muestran los valores de \textit{Precision}, \textit{F1} y \textit{ROC Area Under Curve} para cada modelo comparando entre las bases generadas por \textit{PCA} y por \textit{ICA}. Una vez más, cada punto corresponde al promedio y la varianza de las 10 iteraciones del Cross Validation sobre una determinada base. El eje x (cantidad de componentes) está en escala logarítmica.
 
 \begin{figure}[H]
   \begin{minipage}{1\textwidth}
   \center PCA\\
-	\includegraphics[scale=0.5]{../src/data/prpca.png}
-	\includegraphics[scale=0.5]{../src/data/f1pca.png}
-	\includegraphics[scale=0.5]{../src/data/ropca.png}
+	\includegraphics[scale=0.37]{../src/data/acpca.png}
+	\includegraphics[scale=0.37]{../src/data/prpca.png}
+	\includegraphics[scale=0.37]{../src/data/repca.png}
+	\includegraphics[scale=0.37]{../src/data/f1pca.png}
   \center ICA\\
-	\includegraphics[scale=0.5]{../src/data/prica.png}
-	\includegraphics[scale=0.5]{../src/data/f1ica.png}
-	\includegraphics[scale=0.5]{../src/data/roica.png}
+	\includegraphics[scale=0.37]{../src/data/acica.png}
+	\includegraphics[scale=0.37]{../src/data/prica.png}
+	\includegraphics[scale=0.37]{../src/data/reica.png}
+	\includegraphics[scale=0.37]{../src/data/f1ica.png}
   \end{minipage}
 \end{figure}
+
+Por un lado en el gráfico de Accuracy podemos observar que todos los métodos tienden a mejorar a médida que se incrementa la cantidad de componentes, aunque
+este incremento se torna despreciable a partir de la décima componente. El método de Naive Bayes es la excepeción.
+En el caso de las bases generadas con PCA la métrica de accuracy es bastante baja sin importar la cantidad de componentes.
+Sin embargo, en el caso generado con ICA sí se nota el incremento en accuracy incluso después de la décima componente. Esto tiene sentido, ya que Naive Bayes asume que los atributos son independientes, y no necesariamente lo son. Como el método ICA genera componentes independientes, Naive Bayes tiene mejores resultados a diferencia de PCA.
 
 Ahora veamos cómo se comportan estos métodos sobre la base completa, sin reducir la dimensionalidad.
 
 \begin{figure}[H]
   \begin{minipage}{1\textwidth}
-	\includegraphics[scale=0.5]{../src/data/pr.png}
-	\includegraphics[scale=0.5]{../src/data/f1.png}
-	\includegraphics[scale=0.5]{../src/data/ro.png}
+	\includegraphics[scale=0.37]{../src/data/ac.png}
+	\includegraphics[scale=0.37]{../src/data/pr.png}
+	\includegraphics[scale=0.37]{../src/data/re.png}
+	\includegraphics[scale=0.37]{../src/data/f1.png}
   \end{minipage}
 \end{figure}
+
+
+\section{Conclusiones}
+
+Despueés de notar que SVM tiene un recall casi perfecto en las bases de ICA para cualquier cantidad de componentes,
+mientras que sus valores de Accuracy y Precision apenas superaban 0.5, concluímos que es importante tener en cuenta todas las métricas a 
+la hora de evaluar que tan bueno es un clasificador ya que restringirnos a una sola podría llevarnos a sobrestimar un clasificador.
+
+
+
 
 \end{document}
