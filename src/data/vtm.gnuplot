@@ -1,4 +1,4 @@
-set terminal png size 300,400
+set terminal png size 400,400
 set output "vtm.png"
 
 set style line 1 lc rgb "purple"
@@ -11,8 +11,8 @@ set style fill solid
 set boxwidth 0.13
 
 set ylabel "Tiempo (segundos)"
-set xrange [0.5:3.5]
-set yrange [0:1]
+set xrange [0.5:5.5]
+set logscale y
 set title "Tiempo de predicción"
 unset key
 

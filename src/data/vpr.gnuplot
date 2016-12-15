@@ -1,4 +1,4 @@
-set terminal png size 300,400
+set terminal png size 400,400
 set output "vpr.png"
 
 set style line 1 lc rgb "purple"
@@ -10,7 +10,7 @@ set style line 5 lc rgb "yellow"
 set style fill solid
 set boxwidth 0.13
 
-set xrange [0.5:3.5]
+set xrange [0.5:5.5]
 set yrange [0:1]
 set title "Precision"
 unset key

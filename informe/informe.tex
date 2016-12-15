@@ -97,7 +97,7 @@ A partir de los resultados obtenidos, determinaremos sobre qué base se comporta
 
 \subsection{Gráficos}
 
-Finalmente, tenemos el script \texttt{ploter.py} que lee el archivo \texttt{cv.txt} generado en la fase de cross validation y genera los archivos \texttt{.dat} que utilizará gnuplot para graficar toda esta información. En la carpeta \texttt{data} se encuentran todos los archivos de datos correspondientes y los archivos de gnuplot necesarios para volver a generar los gráficos.
+Finalmente, tenemos el script \texttt{ploter.py} que lee los archivos \texttt{cv.txt} (generado en la fase de cross validation) y \texttt{data.txt} (generado en la fase de validación) y genera los archivos \texttt{.dat} que utilizará gnuplot para graficar toda esta información. En la carpeta \texttt{data} se encuentran todos los archivos de datos correspondientes y los archivos de gnuplot necesarios para volver a generar los gráficos.
 
 \section{Resultados y Análisis}
 
@@ -172,6 +172,7 @@ Por otro lado, nos llamó la atención que en la base con todos los atributos (t
 Las siguientes referencias valen para todos los gráficos de esta sección. Los resultados que aquí se muestran fueron obtenidos ejecutando el script \texttt{validar.py}, descripto en la sección \ref{modelos}.
 
 \begin{figure}[H]
+\centering
 \includegraphics[scale=0.6]{../src/data/refs.png}
 \end{figure}
 
@@ -179,7 +180,7 @@ Las siguientes referencias valen para todos los gráficos de esta sección. Los 
 
 Una característica importante de los modelos es el tiempo necesario para entrenar. Si bien no es crucial que se entrenen en poco tiempo, tampoco queremos esperarlo por siempre. Una de las cosas que mide el script \texttt{validar.py} al hacer Cross Validation, es la cantidad de segundos que dura la ejecución del método \texttt{fit}.
 
-En los siguientes gráficos se muestra la cantidad de tiempo en segundos que demoró cada método en entrenar sobre cada base. Cada punto corresponde al promedio de las 10 iteraciones de Cross Validation. También se grafica la varianza, aunque en la mayoría de los casos es casi inperceptible.
+En los siguientes gráficos se muestra la cantidad de tiempo en segundos que demoró cada método en entrenar sobre cada base. Cada punto corresponde al promedio de las 10 iteraciones de Cross Validation. También se grafica la varianza, aunque en la mayoría de los casos es casi inperceptible. Ambos ejes están escala logarítmica.
 
 \begin{figure}[H]
 \centering
@@ -187,20 +188,21 @@ En los siguientes gráficos se muestra la cantidad de tiempo en segundos que dem
 \includegraphics[scale=0.6]{../src/data/tmica.png}
 \end{figure}
 
-Tanto en las bases generadas con PCA como en las generadas por ICA, el tiempo de entrenamiento es creciente en función de la cantidad de componentes para todos los métodos, excepto Random Forest, el cual parece durar menos a mayor cantidad de componentes.
+Tanto en las bases generadas con PCA como en las generadas por ICA, el tiempo de entrenamiento es creciente en función de la cantidad de componentes para todos los métodos, excepto Random Forest, el cual parece tardar menos a medida que aumenta la cantidad de componentes. Dejando de lado este método particular, podemos agrupar a los métodos SVC con Decision Tree por un lado, con alto costo de entrenamiento y KNN con Naive Bayes por otro, con bajo costo de entrenamiento.
 
 Ahora veamos cómo se comportan estos métodos sobre la base completa, sin reducir la dimensionalidad.
 
 \begin{figure}[H]
-\centering
-\includegraphics[scale=0.6,angle=-90]{../src/data/tm.png}
+  \includegraphics[scale=0.6,angle=-90]{../src/data/tm.png}
 \end{figure}
+
+Al trabajar sobre la base completa, el método SVM se diferencia aún más del resto por ser bastante más costoso de entrenar y el método Decision Tree pasa a estar en el mismo orden que KNN y Naive Bayes. Curiosamente, le toma menos tiempo entrenar sobre la base completa (de 200 atributos) de lo que le tomó entrenar sobre las bases de 100 componentes de PCA e ICA.
 
 \subsubsection{Performance}
 
-Sobre cada fold de Cross Validation, el script \texttt{validar.py} calcula 5 métricas de performance vistas en clase. Estas son \textit{Precision}, \textit{Accuracy}, \textit{Recall}, \textit{F1} y \textit{ROC Area Under Curve}. Si bien generamos los gráficos para cada una de estas métricas, los gráficos de \textit{Accuracy} resultaron ser casi idénticos a los de \textit{ROC Area Under Curve}, con lo cual nos quedamos sólo con el primero. El resto de los gráficos pueden encontrarse en la carpeta \texttt{src/data}
+Sobre cada fold de Cross Validation, el script \texttt{validar.py} calcula 5 métricas de performance vistas en clase. Estas son \textit{Precision}, \textit{Accuracy}, \textit{Recall}, \textit{F1-Score} y \textit{ROC Area Under Curve}. Si bien generamos los gráficos para cada una de estas métricas, los gráficos de \textit{Accuracy} resultaron ser casi idénticos a los de \textit{ROC Area Under Curve}, con lo cual nos quedamos sólo con el primero. Los gráficos que no se muestran pueden encontrarse en la carpeta \texttt{src/data}.
 
-En los siguientes gráficos se muestran los valores de \textit{Precision}, \textit{F1} y \textit{ROC Area Under Curve} para cada modelo comparando entre las bases generadas por \textit{PCA} y por \textit{ICA}. Una vez más, cada punto corresponde al promedio y la varianza de las 10 iteraciones del Cross Validation sobre una determinada base. El eje x (cantidad de componentes) está en escala logarítmica.
+En los siguientes gráficos se muestran los valores de \textit{Accuracy}, \textit{Precision}, \textit{Recall} y \textit{F1-Score} para cada modelo comparando entre las bases generadas por \textit{PCA} y por \textit{ICA}. Una vez más, cada punto corresponde al promedio y la varianza de las 10 iteraciones del Cross Validation sobre una determinada base. El eje x (cantidad de componentes) está en escala logarítmica.
 
 \begin{figure}[H]
   \begin{minipage}{1\textwidth}
@@ -221,9 +223,9 @@ En general, todos los métodos tienden a mejorar a médida que se incrementa la 
 
 El método de Naive Bayes es la excepeción.
 En el caso de las bases generadas con PCA la métrica de accuracy es bastante baja sin importar la cantidad de componentes.
-Sin embargo, en el caso generado con ICA sí se nota el incremento en accuracy incluso después de la décima componente. Esto tiene sentido, ya que Naive Bayes asume que los atributos son independientes, y no necesariamente lo son. Como el método ICA genera componentes independientes, Naive Bayes tiene mejores resultados a diferencia de PCA. Este mismo patrón puede verse en los gráficos de recall y f1 de ICA.
+Sin embargo, en el caso generado con ICA sí se nota el incremento en accuracy incluso después de la décima componente. Esto tiene sentido, ya que Naive Bayes asume que los atributos son independientes, y no necesariamente lo son. Como el método ICA genera componentes independientes, Naive Bayes tiene mejores resultados a diferencia de PCA. Este mismo patrón puede verse en los gráficos de recall y f1 de ICA. También notamos un salto repentino en los valores de Precision, Recall y F1 en las primeras 4 componentes.
 
-Por otro lado, notamos que el método de SVM es altamente variable en la mayoría de las métricas sobre PCA. Es decir, que cada en cada fold se obtuvieron resultados muy dispares. Es curiosos considerando que en el resto de los casos la varianza es imperceptible. Otra particularidad de este método es
+Por otro lado, notamos que el método de SVM es altamente variable en la mayoría de las métricas sobre PCA. Es decir, que cada en cada fold se obtuvieron resultados muy dispares. Es curioso considerando que en el resto de los casos la varianza es imperceptible. Otra particularidad de este método es que ninguna métrica parece mejorar mucho a medida que aumentean las componentes. Además, el Accuracy se mantiene casi constante al rededor de 0.5 en ambos casos. Sin embargo, el Recall es casi 1 en ICA y menor a 0.3 en PCA.
 
 Ahora veamos cómo se comportan estos métodos sobre la base completa, sin reducir la dimensionalidad.
 
@@ -236,11 +238,11 @@ Ahora veamos cómo se comportan estos métodos sobre la base completa, sin reduc
   \end{minipage}
 \end{figure}
 
+Decision Tree y Random Forest parecen ser los más estables. Ambos alcanzan valores superiores a 0.9 en todas las métricas, siendo el segundo levemente superior. Naive Bayes los supera a ambos en Precision pero sus valores de Recall y F1 caen por debajo de 0.2. Este parece ser un claro ejemplo de que no siempre se obtienen mejores resultados sobre la base completa que sobre una base reducida (en la base ICA de 100 componentes, Naive Bayes consiguió Precision casi perfecta, Accuaracy y F1 por encima de 0.8 y Recall de casi 0.7). KNN también se mantiene estable, aunque con valores inferiores a los dos primeros. SVM tiene valores promedio de Recall y F1 muy bajos, junto con una enorme varianza.
+
 \subsection{Validación}
 
-A partir de los resultados obtenidos en la sección anterior elegimos una base para cada método y lo entrenamos sobre esa base con el script \texttt{entrenar.py}. Decidimos basarnos principalmente en la métrica F1 para decidir qué base utilizar para cada método. Observando de cerca los gráficos (y los .dat que los generaron)determinamos...
-
-Luego utilizamos el script \texttt{predecir.py} para ejecutar, sobre la base de validación, cada clasificador entrenado.
+A partir de los resultados obtenidos en la sección anterior decidimos entrenar cada modelo sobre cinco bases. Partiendo de la hipótesis de que los métodos suelen comportarse mejor con la base completa (esto resultó ser falso con Naive Bayes) comenzamos entrenando cada método sobre ella. Dado que las métricas tendían a estabilizarse a partir de las 10 componentes, aunque los tiempos de entrenamiento seguían aumentando, consideramos que las bases PCA e ICA de 10 componentes son opciones que mantienen un equilibrio entre tiempo y performance. Además, dado que Naive Bayes seguía mejorando hasta las 100 componentes (al menos en ICA), entrenamos también a los modelos sobre las bases de 100 componentes. Utilizando el script \texttt{entrenar.py}, generamos los archivos \texttt{.pickle} correspondientes a cada modelo entrenado sobre cada una de las 5 bases elegidas. Luego utilizamos el script \texttt{predecir.py} para ejecutar, sobre la base de validación, cada clasificador entrenado.
 
 \section{Conclusiones}
 

@@ -41,7 +41,7 @@ for M in ["Dtree","Rforest","Nbayes","Knn","Svc"]:
   print("python entrenar.py " + M)
   os.system("python entrenar.py " + M)
   for B in ["PCA","ICA"]:
-    for n in [10]:
+    for n in [10,100]:
       print("python entrenar.py " + M + " " + B + "." + str(n) + ".npy")
       os.system("python entrenar.py " + M + " " + B + "." + str(n) + ".npy")
 
@@ -51,7 +51,7 @@ for M in ["Dtree","Rforest","Nbayes","Knn","Svc"]:
   print s
   os.system(s)
   for B in ["PCA","ICA"]:
-    for n in [10]:
+    for n in [10,100]:
       s = "python predecir.py " + M + "." + B + "." + str(n) + ".npy.pickle " + B + "." + str(n) + "-test.npy testy.npy"
       print s
       os.system(s)
