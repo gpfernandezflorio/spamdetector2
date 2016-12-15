@@ -35,7 +35,7 @@
    * Variando M entre Dtree, Rforest, Nbayes, Knn y Svc.
 8. (b) Ejecutar python predecir.py M.B.npy.pickle B-test.npy testy.npy
    * Variando M entre Dtree, Rforest, Nbayes, Knn y Svc.
-   * Variando B entre PCA.10 y ICA.10
+   * Variando B entre PCA.10, PCA.100, ICA.10 y ICA.100
 
 9. Ejecutar python ploter.py
   * Genera en la carpeta data, todos los archivos .dat
