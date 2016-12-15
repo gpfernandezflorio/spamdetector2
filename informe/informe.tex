@@ -12,9 +12,9 @@
 \subtitulo{Detección de Spam}
 \fecha{\today}
 \materia{Aprendizaje Automático}
+\integrante{Aleman, Damian}{377/10}{damianealeman@gmail.com}
 \integrante{Fernández, Gonzalo}{836/10}{gpfernandezflorio@gmail.com}
-\integrante{Damian, Aleman}{377/10}{damianealeman@gmail.com}
-\integrante{Matías, Pizzagalli}{257/12}{matipizza@gmail.com}
+\integrante{Pizzagalli, Matías}{257/12}{matipizza@gmail.com}
 
 %Titulo e indice
 \maketitle
@@ -32,20 +32,20 @@ Para la reentrega, invertimos el orden de esas acciones, ignorando completamente
 
 \subsection{Base de validación}
 
-El primer paso del desarrollo de este trabajo práctico es la extracción del conjunto de datos para validación. El script \texttt{cortaBase.py} carga los archivos de la base \texttt{ham\_dev.json} y \texttt{spam\_dev.json}, genera un único dataframe etiquetado y extrae un $20\%$ del mismo como base de validación. Esta se almacena en el archovo \texttt{test.npy}, mientras que el resto de la base, la base de desarrollo se almacena en el archivo \texttt{train.npy}. Ahora sí podemos elegir los atributos para el entrenamiento, a partir de analizar los correos en la base de desarrollo.
+El primer paso del desarrollo de este trabajo práctico es la extracción del conjunto de datos para validación. El script \texttt{cortaBase.py} carga los archivos de la base \texttt{ham\_dev.json} y \texttt{spam\_dev.json}, genera un único dataframe etiquetado y extrae un $20\%$ del mismo como base de validación. Esta se almacena en el archivo \texttt{test.npy}, mientras que el resto de la base, la base de desarrollo se almacena en el archivo \texttt{train.npy}. Ahora sí podemos elegir los atributos para el entrenamiento, a partir de analizar los correos en la base de desarrollo.
 
 \subsection{Selección de atributos}
 
-El script \texttt{wordCounter.py} lee la base de desarrollo \texttt{train.npy} y cuenta la cantidad de apariciones de cada palabra en cada clase. Al final decidimos quedarnos con los atributos correspondientes a la cantidad de apariciones de 200 palabras:
+El script \texttt{wordCounter.py} lee la base de desarrollo \texttt{train.npy} y cuenta la cantidad de apariciones de cada palabra en cada clase. Al final decidimos quedarnos con los atributos correspondientes a la cantidad de apariciones de 200 palabras (además del atributo longitud):
 
 \begin{itemize}
-\item De las palabras que sólo aparecen en la clase spam, las 100 con mayor cantidad de apariciones.
-\item De las palabras que aparecen en ambas clases, las 100 con mayor proporción de apariciones en spam sobre apariciones en ham.
+\item De las palabras que sólo aparecen en la clase \texttt{spam}, las 100 con mayor cantidad de apariciones.
+\item De las palabras que aparecen en ambas clases, las 100 con mayor proporción de apariciones en \texttt{spam} sobre apariciones en \texttt{ham}.
 \end{itemize}
 
-Este script genera el archivo \texttt{attributes.py} que contiene las variables y funciones necesarias para extraer los atributos de cada instancia. También utilizamos el atributo longitud.
+Este script genera el archivo \texttt{attributes.py} que contiene las variables y funciones necesarias para extraer los atributos de cada instancia.
 
-Por otro lado, el script \texttt{cargaAtributos.py} toma la base de desarrollo \texttt{train.npy} y la convierte en una matriz de instancias por atributos utilizando los atributos designados en \texttt{attributes.py}. Almacena esta matriz en el archivo \texttt{trainX.npy} y el vector de etiquetas en el archivo \texttt{trainy.npy}. Luego hace lo mismo con la base de validación, almacenando el resultado en los archivos \texttt{testX.npy} y \texttt{testy.npy}. De esta forma, la dejamos formateada para cuando la necesitemos al final de la experimentación.
+Por otro lado, el script \texttt{cargaAtributos.py} toma la base de desarrollo \texttt{train.npy} y la convierte en una matriz de instancias por atributos utilizando los atributos designados en \texttt{attributes.py}. Esta matriz se almacena en el archivo \texttt{trainX.npy} y el vector de etiquetas en el archivo \texttt{trainy.npy}. Luego hace lo mismo con la base de validación, almacenando el resultado en los archivos \texttt{testX.npy} y \texttt{testy.npy}. De esta forma, la dejamos formateada para cuando la necesitemos al final de la experimentación.
 
 \subsection{Reducción de dimensionalidad}
 
@@ -91,7 +91,7 @@ A continuación se detallan los algoritmos utilizados junto con los valores expl
   \end{itemize}
 \end{itemize}
 
-Una vez definidos los mejores parámetros de cada método, pasamos a la parte de evaluar los modelos según las distintas métricas vistas en clase. El script \texttt{validar.py} ejecuta cross validation sobre un modelo y una base para luego escribir en el archivo \texttt{cv.txt} el tiempo que le demoró entrenar al modelo y las medias y varianzas de cada una de las métricas. Los valores de las métricas se calcularon utilizando \textit{spam} como la etiqueta positiva. La información contenida en este archivo será utilizada luego para generar los gráficos de la sección \textbf{Resultados}. El script toma como parámetros el método, la base y la cantidad de folds (10 por defecto).
+Una vez definidos los mejores parámetros de cada método, pasamos a la parte de evaluar los modelos según las distintas métricas vistas en clase. El script \texttt{validar.py} ejecuta cross validation sobre un modelo y una base para luego escribir en el archivo \texttt{cv.txt} el tiempo que le demoró entrenar al modelo y las medias y varianzas de cada una de las métricas. Los valores de las métricas se calcularon utilizando \texttt{spam} como la etiqueta positiva. La información contenida en este archivo será utilizada luego para generar los gráficos de la sección \textbf{Resultados}. El script toma como parámetros el método, la base y la cantidad de folds (10 por defecto).
 
 A partir de los resultados obtenidos, determinaremos sobre qué base se comporta mejor cada algoritmo. Entonces pasaremos a guardar los modelos entrenados. El script \texttt{entrenar.py} toma un método y una base y almacena en un archivo el modelo entrenado en esa base. Estos modelos entrenados pueden utilizarse para clasificar nuevas instancias con el script \texttt{predecir.py} que toma como parámetro un archivo \texttt{.pickle} y una base y devuelve el vector de etiquetas para cada instancia de la base. Además, si se le pasa también un vector de etiquetas como parámetro, escribe en un archivo los valores de las métricas. Este script lo usaremos al final de la experimentación para clasificar las instancias en la base de validación.
 
@@ -160,9 +160,12 @@ ICA & 100 & 20 & None & 5 & gini & 20 & 50 & 5 & gini & 150 & 4 & linear & 10 \\
 \hline
 \end{tabular}
 \end{scriptsize}
+\\\\\\
+Si bien la tabla es bastante variada, pudimos observar algunas particularidades. Notamos por ejemplo, que el kernel de SVM elegido por GridSearch para las bases generadas con ICA es lineal en todos los casos, mientras que con PCA, varía entre todas las opciones. Esto podría indicar que el método SVM funciona mejor sobre una base con atributos independientes, usando un kernel lineal.
 
-Notamos que el kernel de SVM elegido por GridSearch para las bases generadas con ICA es lineal en todos los casos.
-Por otro lado, nos llamó la atención que en la base con todos los atributos el método de random forest según GridSearch tiene como valor óptimo del atribiuto max\_features es 1, mientras que con el método de Decision Tree, a este atributo casi siempre se le asignaba el valor None (ningún máximo).
+El método KNN también tuvo una clara diferenciación entre las bases generadas con PCA y con ICA. Si bien al parámetro \textit{weights} siempre se le asignó \textit{distance} (por eso no se muestra en la tabla), parece funcionar mejor con pocos vecinos en el caso de PCA (no más de dos, excepto en el caso de una única componente) y con muchos (4 o 5) en el caso de ICA.
+
+Por otro lado, nos llamó la atención que en la base con todos los atributos (trainX) el método Random Forest según GridSearch tiene como valor óptimo del atribiuto \textit{max\_features} el valor 1, mientras que con el método Árbol de Decisión, a este atributo casi siempre se le asignaba el valor \textit{None} (es decir, ningún máximo). Random Forest también tiene la particularidad de que parece funcionar mejor cuantos más estimadores tenga, ya que en casi todos los casos el valor elegido para el parámetro \textit{n\_estimators} fue 150, que es máximo que exploramos.
 
 \subsection{Cross Validation}
 
