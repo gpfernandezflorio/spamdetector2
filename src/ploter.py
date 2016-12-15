@@ -17,8 +17,6 @@
   * En la carpeta data
 """
 
-import matplotlib.pyplot as plt
-
 M = 201
 
 tmica = {"Dtree":[None]*M,"Rforest":[None]*M,"Nbayes":[None]*M,"Knn":[None]*M,"Svc":[None]*M}

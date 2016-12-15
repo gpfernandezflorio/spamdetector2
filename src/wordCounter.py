@@ -16,7 +16,6 @@
   * si no, en el mismo directorio.
 
   Output: attributes.py
-  * Tras ejecutarlo, revisar el archivo de salida y reemplazar las apariciones de ' por \', dentro de los strings.
 """
 
 from variables import *

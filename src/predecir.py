@@ -17,29 +17,58 @@
   Requiere el archivo testX.npy (o el pasado por parámetro como base), el archivo pasado por parámetro como modelo y el archivo pasado por parámetro como LABEL, de haber alguno.
   * si estoy_en_los_labos los va a buscar en /media/libre/aa/.
   * si no, en el mismo directorio.
+  * La base debería coincidir en componentes con la base con la que el modelo fue entrenado.
+  * La base y el vector de etiquetas deberían tener el mismo tamaño.
 
   Output: data.txt (append) | predict.txt.
-  * Si se pasa un vector de etiquetas por parámetro, se modifica el achivo data.txt
+  * Si se pasa un vector de etiquetas por parámetro, se modifica el achivo data.txt con las métricas.
   * En caso contrario, se genera el vector de etiquetas en predict.txt.
 """
 
 from variables import *
 
-#TODO: if label == None, sólo imprimir la predicción.
-      # else: usar label para calcular las métricas y guardarlas en un archivo con el mismo estilo que validar
+def predecir(modelo, base, label):
+  print modelo, base
+  if label == None:
+    print "sin label"
+  else:
+    print "Label:", label
 
-def predecir(metodo, base, label):
-  testX = np.load(path + base)
-  clf = pickle.load(open(path + metodo + base.replace("test","train") + '.pickle'))
+  f_base = path + base
+  if os.path.isfile(f_base):
+    f_modelo = path + modelo
+    if os.path.isfile(f_modelo):
+      clf = pickle.load(open(f_modelo))
+      testX = np.load(f_base)
+    else:
+      print "Error: No existe el archvivo \""+f_modelo+"\""
+      exit()
+  else:
+    print "Error: No existe el archvivo \""+f_base+"\""
+    exit()
+
   start = time.time()
   predy = list(clf.predict(testX))
   end = time.time()
-  testy = np.load(path + 'testy.npy')
-  testn = map(lambda x : ( 1 if x == 'ham' else 0 ), testy)
-  predn = map(lambda x : ( 1 if x == 'ham' else 0 ), predy)
-  d = datetime.datetime.now()
+
+  if label == None:
+    f = open("predict.txt",'w')
+    for p in predy:
+      f.write(p + "\n")
+    f.close()
+    exit()
+
+  f_label = path + label
+  if os.path.isfile(f_label):
+    testy = np.load(f_label)
+  else:
+    print "Error: No existe el archvivo \""+f_label+"\""
+    exit()
+
+  testn = map(lambda x : ( 0 if x == 'ham' else 1 ), testy)
+  predn = map(lambda x : ( 0 if x == 'ham' else 1 ), predy)
   f = open("data.txt",'a')
-  f.write(metodo + " " + redDim + " " + cant_comp + " ")
+  f.write(modelo + " " + base + " ")
   f.write(str(end - start) + " ")
   f.write(str(precision_score(testn, predn)) + " ")
   f.write(str(recall_score(testn, predn)) + " ")
@@ -60,10 +89,6 @@ if __name__ == '__main__':
       if len(sys.argv) > n:
         label = sys.argv[n]
         n = n + 1
-    else:
-      print u'¿Qué base querés?'
-      exit()
     predecir(metodo, base, label)
-    exit()
   else:
     print u'¿Qué método querés?'

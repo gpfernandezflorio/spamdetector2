@@ -6,8 +6,6 @@
 
 from variables import *
 
-import os.path
-
 def cargarModelo(metodo, base=None):
   bp = {}
   if base == None:
