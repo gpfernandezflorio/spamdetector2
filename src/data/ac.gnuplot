@@ -19,6 +19,6 @@ unset key
 
 plot "dtac.dat" using 1:3:xtic(2) w boxes ls 1 title "Decision Tree", "dtac.dat" using 1:3:4 w errorbars linetype 1 title "", \
      "rfac.dat" using 1:3:xtic(2) w boxes ls 2 title "Random Forest", "rfac.dat" using 1:3:4 w errorbars linetype 2 title "", \
-     "nbac.dat" using 1:3:xtic(2) w boxes ls 3 title "Naive Bayes|", "nbac.dat" using 1:3:4 w errorbars linetype 3 title "", \
+     "nbac.dat" using 1:3:xtic(2) w boxes ls 3 title "Naive Bayes", "nbac.dat" using 1:3:4 w errorbars linetype 3 title "", \
      "knnac.dat" using 1:3:xtic(2) w boxes ls 4 title "KNN", "knnac.dat" using 1:3:4 w errorbars linetype 4 title "", \
      "svcac.dat" using 1:3:xtic(2) w boxes ls 5 title "SVM", "svcac.dat" using 1:3:4 w errorbars linetype 5 title ""
