@@ -26,5 +26,6 @@ def cargarModelo(metodo, base=None):
   elif metodo == 'Svc':
     clf = SVC()
   for k in bp:
-    clf.set_params(**{k:bp[k]})
+    if not (metodo == 'Dtree' and k == 'max_features'):
+      clf.set_params(**{k:bp[k]})
   return clf

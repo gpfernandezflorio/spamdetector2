@@ -27,7 +27,7 @@ for M in ["Dtree","Rforest","Nbayes","Knn","Svc"]:
       print("python gridSearch.py " + M + " " + B + "." + str(n) + ".npy")
       os.system("python gridSearch.py " + M + " " + B + "." + str(n) + ".npy")
 
-print "Validar modelos"
+print "Evaluar modelos (Cross Validation)"
 for M in ["Dtree","Rforest","Nbayes","Knn","Svc"]:
   print("python validar.py " + M)
   os.system("python validar.py " + M)
@@ -36,16 +36,25 @@ for M in ["Dtree","Rforest","Nbayes","Knn","Svc"]:
       print("python validar.py " + M + " " + B + "." + str(n) + ".npy")
       os.system("python validar.py " + M + " " + B + "." + str(n) + ".npy")
 
-exit()
-
 print "Entrenar modelos"
 for M in ["Dtree","Rforest","Nbayes","Knn","Svc"]:
   print("python entrenar.py " + M)
   os.system("python entrenar.py " + M)
   for B in ["PCA","ICA"]:
-    for n in [10,100]:
+    for n in [10]:
       print("python entrenar.py " + M + " " + B + "." + str(n) + ".npy")
       os.system("python entrenar.py " + M + " " + B + "." + str(n) + ".npy")
+
+print "Validar modelos (contra la base de validacion)"
+for M in ["Dtree","Rforest","Nbayes","Knn","Svc"]:
+  s = "python predecir.py " + M + ".trainX.npy.pickle testX.npy testy.npy"
+  print s
+  os.system(s)
+  for B in ["PCA","ICA"]:
+    for n in [10]:
+      s = "python predecir.py " + M + "." + B + "." + str(n) + ".npy.pickle " + B + "." + str(n) + "-test.npy testy.npy"
+      print s
+      os.system(s)
 
 print "Plotear medidas de la validacion"
 print("python ploter.py")

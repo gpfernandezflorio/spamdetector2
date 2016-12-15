@@ -28,11 +28,6 @@
 from variables import *
 
 def predecir(modelo, base, label):
-  print modelo, base
-  if label == None:
-    print "sin label"
-  else:
-    print "Label:", label
 
   f_base = path + base
   if os.path.isfile(f_base):
