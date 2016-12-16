@@ -242,15 +242,53 @@ Decision Tree y Random Forest parecen ser los más estables. Ambos alcanzan valo
 
 \subsection{Validación}
 
-A partir de los resultados obtenidos en la sección anterior decidimos entrenar cada modelo sobre cinco bases. Partiendo de la hipótesis de que los métodos suelen comportarse mejor con la base completa (esto resultó ser falso con Naive Bayes) comenzamos entrenando cada método sobre ella. Dado que las métricas tendían a estabilizarse a partir de las 10 componentes, aunque los tiempos de entrenamiento seguían aumentando, consideramos que las bases PCA e ICA de 10 componentes son opciones que mantienen un equilibrio entre tiempo y performance. Además, dado que Naive Bayes seguía mejorando hasta las 100 componentes (al menos en ICA), entrenamos también a los modelos sobre las bases de 100 componentes. Utilizando el script \texttt{entrenar.py}, generamos los archivos \texttt{.pickle} correspondientes a cada modelo entrenado sobre cada una de las 5 bases elegidas. Luego utilizamos el script \texttt{predecir.py} para ejecutar, sobre la base de validación, cada clasificador entrenado.
+A partir de los resultados obtenidos en la sección anterior decidimos entrenar cada modelo sobre cinco bases. Partiendo de la hipótesis de que los métodos suelen comportarse mejor con la base completa (esto resultó ser falso con Naive Bayes) comenzamos entrenando cada método sobre ella. Dado que las métricas tendían a estabilizarse a partir de las 10 componentes, aunque los tiempos de entrenamiento seguían aumentando, consideramos que las bases PCA e ICA de 10 componentes son opciones que mantienen un equilibrio entre tiempo y performance. Además, dado que Naive Bayes seguía mejorando hasta las 100 componentes (al menos en ICA), entrenamos también a los modelos sobre las bases de 100 componentes. Utilizando el script \texttt{entrenar.py}, generamos los archivos \texttt{.pickle} correspondientes a cada modelo entrenado sobre cada una de las 5 bases elegidas. Luego utilizamos el script \texttt{predecir.py} para ejecutar, sobre la base de validación, cada clasificador entrenado. Las siguientes referencias valen para todos los gráficos de esta sección.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{../src/data/refs.png}
+\end{figure}
+
+A continuación se muestran las métricas para cada uno de los 25 modelos entrenados, al clasificar las instancias de la base de validación. Estos resultados se obtuvieron ejecutando el script \texttt{predecir.py}, descripto en la sección \ref{modelos}.
+
+\begin{figure}[H]
+  \begin{minipage}{1\textwidth}
+	\includegraphics[scale=0.5]{../src/data/vac.png}
+	\includegraphics[scale=0.5]{../src/data/vpr.png}
+	\includegraphics[scale=0.5]{../src/data/vre.png}
+	\includegraphics[scale=0.5]{../src/data/vf1.png}
+  \end{minipage}
+\end{figure}
+
+Vemos que se repite el patrón entre Decision Tree y Random Forest. Ambos tienen valores muy buenos en todas las métricas y siempre el segundo es levemente superior al primero. El único caso en el que eso no sucede, es en el gráfico de Recall sobre las bases de ICA, donde esta diferencia se invierte. Además, las diferencias entre las distintas bases son casi inperceptibles, por lo que por ahora, nos da igual utilizar cualquier modelo basado en Random Forest, que utilizar cualquier otro basado en Decision Tree. La diferencia clave podría estar en los tiempos de entrenamiento y predicción, que podrían alentarnos a utilizar alguno de estos por sobre otro.
+
+El método KNN no es tan bueno como estos dos, pero mantiene siempre valores por encima de 0.6. Los modelos basados en Naive Bayes tienen todos buena Precision, pero bajos niveles de Recall y F1. El único modelo basado en Naive Bayes con buenos valores en todas las métricas es el entrenado sobre la base ICA de 100 componentes. Los modelos basados en SVM tiene Recall perfecto sobre las bases ICA, pero apenas alcanzan 0.5 de Precision y Accuracy. Con lo cual, consideramos que ningún modelo basado en SVM es confiable.
+
+Los siguientes gráficos corresponden a los tiempos de entrenamiento y de clasifición de cada uno de los 25 modelos. El gráfico de la izquierda muestra la cantidad de tiempo en segundos que duró la ejecución de la función \texttt{fit}. El gráfico de la derecha muestra la cantidad de tiempo en segundos que duró la ejecución de la función \texttt{predict}. Estos resultados se obtuvieron ejecutando los scripts \texttt{entrenar.py} y \texttt{predecir.py}, ambos descriptos en la sección \ref{modelos}.
+
+\begin{figure}[H]
+  \begin{minipage}{1\textwidth}
+  \centering
+	\includegraphics[scale=0.5]{../src/data/vtp.png}
+	\includegraphics[scale=0.5]{../src/data/vtm.png}
+  \end{minipage}
+\end{figure}
+
+A partir de los gráficos anteriores, llegamos a que todos los modelos basados en Decision Tree y Random Forest tenían performance similar. A partir de los gráficos de tiempo, podemos ver que es conveniente utilizar un modelo basado en Decision Tree, entrenado sobre una base de no más de 10 componentes, reduciendo en 1 el orden de tiempo de ejecución (respecto a los modelos basados en Random Forest), pero manteniendo un nivel aceptable de performance. Random Forest tiene más o menos el mismo nivel de performance y sin embargo sus tiempos de entrenamiento y clasificación están un orden por encima de los tiempos de modelos basados en Decision Tree sobre bases de 10 componentes.
+
+Volvemos a notar que el tiempo de entrenamiento de Decision Tree sobre la base completa es menor al de entrenarse sobre bases de 100 componentes. SVM resultó ser el método con menor performance y sin embargo, está entre los más costosos, tanto a la hora de entrenar como de predecir. KNN es rápido para entrenar, pero lento para predecir, todo lo contrario a Decision Tree. Naive Bayes es relativamente rápido en ambos casos.
 
 \section{Conclusiones}
+
+Decision Tree y Random Forest resultaron ser similares en cuanto a performance, pero el primero demostró ser mucho más rápido.
+
+El método Navie Bayes suele ser un mal clasificador en general, pero puede alcanzar valores muy buenos si se lo entrena sobre una base generada con ICA.
+
+Los modelos basados en KNN resultaron ser bastante buenos para lo simple que parece ser su estrategia. Incluso son rápidos de entrenar sobre cualquier base, aunque no son tan rápidos a la hora de clasificar.
 
 Después de notar que SVM tiene un recall casi perfecto en las bases de ICA para cualquier cantidad de componentes,
 mientras que sus valores de Accuracy y Precision apenas superaban 0.5, concluímos que es importante tener en cuenta todas las métricas a 
 la hora de evaluar que tan bueno es un clasificador ya que restringirnos a una sola podría llevarnos a sobrestimar un clasificador.
-
-
 
 
 \end{document}

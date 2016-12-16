@@ -1,4 +1,4 @@
-set terminal png size 400,400
+set terminal png size 600,400
 set output "vtm.png"
 
 set style line 1 lc rgb "purple"
@@ -13,7 +13,7 @@ set boxwidth 0.13
 set ylabel "Tiempo (segundos)"
 set xrange [0.5:5.5]
 set logscale y
-set title "Tiempo de predicción"
+set title "Tiempo de Predicción"
 unset key
 
 plot "vdttm.dat" using 1:3:xtic(2) w boxes ls 1 title "Decision Tree", \
