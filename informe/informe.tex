@@ -102,7 +102,7 @@ Finalmente, tenemos el script \texttt{ploter.py} que lee los archivos \texttt{cv
 \section{Resultados y Análisis}
 
 \subsection{Grid Search}
-En la siguiente tabla se muestran los mejores hiperparámetros obtenidos con cada método sobre cada base\footnote{Se omite la columna \texttt{weights} del método \textbf{KNN} ya que en todos los casos el resultado obtenido para dicho parámetro fue \texttt{distance}.}.Los resultados que aquí se muestran fueron obtenidos ejecutando el script \texttt{gridSearch.py}, descripto en la sección \ref{modelos}.
+En la siguiente tabla se muestran los mejores hiperparámetros obtenidos con cada método sobre cada base\footnote{Se omite la columna \texttt{weights} del método \textbf{KNN} ya que en todos los casos el resultado obtenido para dicho parámetro fue \texttt{distance}.}. Los resultados que aquí se muestran fueron obtenidos ejecutando el script \texttt{gridSearch.py}, descripto en la sección \ref{modelos}.
 \\\\
 
 \begin{scriptsize}
@@ -165,7 +165,7 @@ Si bien la tabla es bastante variada, pudimos observar algunas particularidades.
 
 El método KNN también tuvo una clara diferenciación entre las bases generadas con PCA y con ICA. Si bien al parámetro \textit{weights} siempre se le asignó \textit{distance} (por eso no se muestra en la tabla), parece funcionar mejor con pocos vecinos en el caso de PCA (no más de dos, excepto en el caso de una única componente) y con muchos (4 o 5) en el caso de ICA.
 
-Por otro lado, nos llamó la atención que en la base con todos los atributos (trainX) el método Random Forest según GridSearch tiene como valor óptimo del atribiuto \textit{max\_features} el valor 1, mientras que con el método Árbol de Decisión, a este atributo casi siempre se le asignaba el valor \textit{None} (es decir, ningún máximo). Random Forest también tiene la particularidad de que parece funcionar mejor cuantos más estimadores tenga, ya que en casi todos los casos el valor elegido para el parámetro \textit{n\_estimators} fue 150, que es máximo que exploramos.
+Por otro lado, nos llamó la atención que en la base con todos los atributos (trainX) el método Random Forest según GridSearch tiene como valor óptimo del atribiuto \textit{max\_features} el valor 1, mientras que con el método Árbol de Decisión, a este atributo casi siempre se le asignaba el valor \textit{None} (es decir, ningún máximo). Random Forest también tiene la particularidad de que parece funcionar mejor cuantos más estimadores tenga, ya que en casi todos los casos el valor elegido para el parámetro \textit{n\_estimators} fue 150, que es el máximo que exploramos.
 
 \subsection{Cross Validation}
 
@@ -287,7 +287,7 @@ El método Navie Bayes suele ser un mal clasificador en general, pero puede alca
 Los modelos basados en KNN resultaron ser bastante buenos para lo simple que parece ser su estrategia. Incluso son rápidos de entrenar sobre cualquier base, aunque no son tan rápidos a la hora de clasificar.
 
 Después de notar que SVM tiene un recall casi perfecto en las bases de ICA para cualquier cantidad de componentes,
-mientras que sus valores de Accuracy y Precision apenas superaban 0.5, concluímos que es importante tener en cuenta todas las métricas a 
+mientras que sus valores de Accuracy y Precision apenas superaban 0.5, concluímos que es importante tener en cuenta todas las métricas a
 la hora de evaluar que tan bueno es un clasificador ya que restringirnos a una sola podría llevarnos a sobrestimar un clasificador.
 
 
